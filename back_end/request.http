@@ -1,0 +1,56 @@
+### Create Account
+POST http://localhost:3000/api/v1/account/create
+Content-Type: application/json
+
+{
+    "email":"hoangvanbinh@gmail.com",
+    "password":"123456"
+}
+
+
+### Login
+POST http://localhost:3000/api/v1/account/login
+Content-Type: application/json
+
+{
+    "email":"hoangvanbinh@gmail.com",
+    "password":"123456"
+}
+
+### create-db
+GET http://localhost:3000/api/v1/account/create-db
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
+
+
+### Add Step for task
+POST http://localhost:3000/api/v1/step
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
+Content-Type: application/json
+
+{
+    "taskId":"63689e628621cf4ab9a904ca",
+    "stepName": "Do step 1",
+    "priority": "1"
+}
+
+### Update Step for task
+PUT  http://localhost:3000/api/v1/step
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
+Content-Type: application/json
+
+{
+    "stepId":"6368a52a2f06a84cd99bea0e",
+    "stepName": "Do step 1.3",
+    "priority": "1"
+}
+
+
+### DELETE STEP
+DELETE  http://localhost:3000/api/v1/step/6368a6684485f5c137ad1b8f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
+
+
+
+### GET STEP
+GET  http://localhost:3000/api/v1/step/63689e628621cf4ab9a904ca
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw

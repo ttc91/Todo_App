@@ -1,19 +1,32 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const db = require('./config/db/index')
-const router = require('./src/routes/index')
+const morgan = require("morgan");
+const cors = require("cors");
+const accountRouter = require("./src/routes/account.route");
+const stepRouter = require("./src/routes/step.route");
 
-app.use(bodyParser.json());
-app.use(morgan('tiny'));
+const bodyparser = require("body-parser");
+const db = require("./config/db/index");
+require("dotenv").config();
+const errorHandler = require("./config/helpers/error-handler");
 
-router.routes(app);
+const api = process.env.API_URL;
 
 const port = 3000;
 
 db.connect();
 
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({ extended: true }));
+//app.use(cors());
+app.use(morgan("tiny"));
+app.use(errorHandler);
+
+//app.use(authJwt())
+app.use(api + "/account", accountRouter);
+app.use(api + "/step", stepRouter);
+app.use(express.json);
+
 app.listen(port, () => {
-    console.log(`server is running http://localhost:${port}`)
+  console.log(`server is running http://localhost:${port}`);
 });
