@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const taskSchema = new Schema ({
-    id: String,
     taskName: {
         type: String,
         length: 50,
@@ -16,6 +15,8 @@ const taskSchema = new Schema ({
     isImportant: Boolean,
     isToday: Boolean,
     deadline: Date,
+    remindAt: Date,
+    file: Buffer,
     list: {
         type: Schema.Types.ObjectId,
         ref: 'List'
