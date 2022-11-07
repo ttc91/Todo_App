@@ -9,6 +9,10 @@ const verifyToken = require("../../config/helpers/auth");
 
 router.post("/create", accountService.create);
 
+router.get("/getAll", accountService.get) 
+
+router.post("/changepw", accountService.changePassword) 
+
 router.post("/login", accountService.login);
 
 router.get("/create-db", verifyToken, (req, res) => {
