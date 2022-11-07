@@ -2,13 +2,16 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
+
 const accountRouter = require("./src/routes/account.route");
 const stepRouter = require("./src/routes/step.route");
+const taskRouter = require("./src/routes/task.route");
 
 const bodyparser = require("body-parser");
 const db = require("./config/db/index");
 require("dotenv").config();
 const errorHandler = require("./config/helpers/error-handler");
+const authJwt = require("./config/helpers/jwt")
 
 const api = process.env.API_URL;
 
@@ -25,6 +28,7 @@ app.use(errorHandler);
 //app.use(authJwt())
 app.use(api + "/account", accountRouter);
 app.use(api + "/step", stepRouter);
+app.use(api + "/task", taskRouter);
 app.use(express.json);
 
 app.listen(port, () => {

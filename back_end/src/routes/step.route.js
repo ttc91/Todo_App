@@ -4,7 +4,6 @@ const verifyToken = require("../../config/helpers/auth");
 
 const StepService = require("../services/StepService");
 
-
 router.get("/:taskId", verifyToken, StepService.getStepsOfTaks);
 
 router.post("/", verifyToken, StepService.createStep);
