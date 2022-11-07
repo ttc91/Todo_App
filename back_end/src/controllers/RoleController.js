@@ -6,6 +6,10 @@ class RoleController {
         service.create(req, res);
     }
 
+    update(req, res) {
+        service.update(req, res);
+    }
+
 }
 
 module.exports = new RoleController;

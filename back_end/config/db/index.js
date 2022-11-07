@@ -1,3 +1,4 @@
+const res = require('express/lib/response');
 const mongoose = require('mongoose');
 require('dotenv').config(); 
 
@@ -8,7 +9,7 @@ async function connect () {
         dbName: 'todo_app'
     })
     .then(() => {
-        console.log('Connect to db completed !')
+        console.log('Connect to db completed !');
     }).catch((error) => {
         console.log('Connect to db fail !');
     }); 

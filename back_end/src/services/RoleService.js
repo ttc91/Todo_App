@@ -2,24 +2,43 @@ const Role = require('../models/Role');
 
 class RoleService {
 
-    create(req, res) {
+    async create(req, res) {
 
-        const role = Role({
+        const role = await Role({
             roleName: req.body.roleName
         });
-        role.save().then(
+        await role.save().then(
             () => {
-                console.log('Create role complete !');
-                res.send(role);
+                res.status(201).json(role);
             }
         ).catch((err) => {
-            console.log('Create role fail !');
+            res.status(500).json({
+                error: err,
+                success: false
+            })
         })
 
     };
 
-    
+    async update(req, res) {
+        var role = await Role.findById(req.body.id);
 
+        await role.updateOne({
+            roleName: req.body.roleName
+        })
+
+        await role.save().then(
+            () => {
+                res.status(200).json(role);
+            },
+        ).catch((err) => {
+            res.status(500).json({
+                error: err,
+                success: false
+            })
+        });
+    }
+    
 }
 
 module.exports = new RoleService;

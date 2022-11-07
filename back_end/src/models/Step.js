@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const stepSchema = Schema ({
-    _id: Schema.Types.ObjectId,
+    id: String,
     stepName : {
         type: String,
         length: 10,

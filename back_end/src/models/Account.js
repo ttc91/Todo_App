@@ -2,9 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const accountSchema = new Schema ({
-    _id: Schema.Types.ObjectId,
-    username: String,
-    password: String,
+    id: String,
+    username: {
+        type: String,
+        unique: true,
+        require: true,
+        length: 50
+    },
+    password: {
+        type: String,
+        require: true
+    },
     createdAt: {
         type: Date,
         default: Date.now

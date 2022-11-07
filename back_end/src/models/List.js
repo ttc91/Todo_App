@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const listSchema = new Schema ({
-    _id: Schema.Types.ObjectId,
+    id: String,
     listName: {
         type: String,
         length: 50,
