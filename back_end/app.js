@@ -6,6 +6,7 @@ const cors = require("cors");
 const accountRouter = require("./src/routes/account.route");
 const stepRouter = require("./src/routes/step.route");
 const taskRouter = require("./src/routes/task.route");
+const listRouter = require("./src/routes/list.route");
 
 const bodyparser = require("body-parser");
 const db = require("./config/db/index");
@@ -29,6 +30,7 @@ app.use(errorHandler);
 app.use(api + "/account", accountRouter);
 app.use(api + "/step", stepRouter);
 app.use(api + "/task", taskRouter);
+app.use(api + "/list", listRouter);
 app.use(express.json);
 
 app.listen(port, () => {
