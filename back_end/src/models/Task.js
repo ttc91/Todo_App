@@ -9,14 +9,33 @@ const taskSchema = new Schema ({
     },
     note: {
         type: String,
-        length: 500
+        length: 500,
+        default: null
     },
-    isCompleted: Boolean,
-    isImportant: Boolean,
-    isToday: Boolean,
-    deadline: Date,
-    remindAt: Date,
-    file: Buffer,
+    isCompleted: {
+        type: Boolean,
+        default: false
+    },
+    isImportant: {
+        type: Boolean,
+        default: false
+    },
+    isToday: {
+        type: Boolean,
+        default: false
+    },
+    deadline: {
+        type: Date,
+        default: null
+    },
+    remindAt: {
+        type: Date,
+        default: null
+    },
+    file: {
+        type: Buffer,
+        default: null
+    },
     list: {
         type: Schema.Types.ObjectId,
         ref: 'List'
