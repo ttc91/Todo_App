@@ -45,7 +45,7 @@ class StepService {
         .status(400)
         .send({ success: false, message: "Error when adding new step !" });
     return res.status(200).send({
-      success: false,
+      success: true,
       message: "Update step successfully !",
       step: step,
     });
@@ -61,8 +61,8 @@ class StepService {
     await Step.findByIdAndDelete(stepId);
 
     return res
-      .status(400)
-      .send({ success: false, message: "Delete step successfully !" });
+      .status(200)
+      .send({ success: true, message: "Delete step successfully !" });
   }
 
   async getStepsOfTaks(req, res) {

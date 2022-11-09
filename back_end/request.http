@@ -9,7 +9,7 @@ Content-Type: application/json
 
 
 ### Login
-POST http://localhost:3000/api/v1/account/login
+POST http://localhost:3000/api/v1/accounts/login
 Content-Type: application/json
 
 {
@@ -18,39 +18,68 @@ Content-Type: application/json
 }
 
 ### create-db
-GET http://localhost:3000/api/v1/account/create-db
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
-
+GET http://localhost:3000/api/v1/accounts/create-db
+x-access-token:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
 
 ### Add Step for task
-POST http://localhost:3000/api/v1/step
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
+POST http://localhost:3000/api/v1/steps
+x-access-token:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
 Content-Type: application/json
 
 {
-    "taskId":"63689e628621cf4ab9a904ca",
-    "stepName": "Do step 1",
+    "taskId":"636bcb7762ba151ecd7385a3",
+    "stepName": "Do step2 3",
     "priority": "1"
+}
+### Add Lists
+POST http://localhost:3000/api/v1/lists/create
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2NjgwMDMwNTIsImV4cCI6MTY2ODYwNzg1Mn0.qWT3-Z0Iuioy6ZThV5_WEjfj4ixZWGnph8g9gCvQEsY
+Content-Type: application/json
+
+{
+   "listName": "List 01"
+}
+
+### Add Task
+POST http://localhost:3000/api/v1/tasks/create
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2NjgwMDMwNTIsImV4cCI6MTY2ODYwNzg1Mn0.qWT3-Z0Iuioy6ZThV5_WEjfj4ixZWGnph8g9gCvQEsY
+Content-Type: application/json
+
+{
+   "taskName": "Task 01",
+    "note": "Not thing",
+    "isCompleted": false,
+    "isImportant": true,
+    "isToday": false,
+    "deadline": "2022-12-07T14:15:05.150+00:00",
+    "remindAt": "",
+    "file": "",
+    "listId": "636bcb6d62ba151ecd7385a0"
 }
 
 ### Update Step for task
 PUT  http://localhost:3000/api/v1/step
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
+x-access-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
 Content-Type: application/json
 
 {
-    "stepId":"6368a52a2f06a84cd99bea0e",
-    "stepName": "Do step 1.3",
+    "stepId":"636bc0124c3be4fc9276c800",
+    "stepName": "Do step 11",
     "priority": "1"
 }
 
 
 ### DELETE STEP
-DELETE  http://localhost:3000/api/v1/step/6368a6684485f5c137ad1b8f
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
+DELETE  http://localhost:3000/api/v1/steps/6368a6684485f5c137ad1b8f
+x-access-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
 
 
 
 ### GET STEP
-GET  http://localhost:3000/api/v1/step/63689e628621cf4ab9a904ca
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
+GET  http://localhost:3000/api/v1/steps/636bb6044c3be4fc9276c709
+x-access-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
+
+
+###
+GET http://localhost:3000/api/v1/tasks/get_all/63689e628621cf4ab9a904c8
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2NjgwMDMwNTIsImV4cCI6MTY2ODYwNzg1Mn0.qWT3-Z0Iuioy6ZThV5_WEjfj4ixZWGnph8g9gCvQEsY

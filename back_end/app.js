@@ -22,15 +22,15 @@ db.connect();
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
-//app.use(cors());
+app.use(cors());
 app.use(morgan("tiny"));
 app.use(errorHandler);
 
 //app.use(authJwt())
-app.use(api + "/account", accountRouter);
-app.use(api + "/step", stepRouter);
-app.use(api + "/task", taskRouter);
-app.use(api + "/list", listRouter);
+app.use(api + "/accounts", accountRouter);
+app.use(api + "/steps", stepRouter);
+app.use(api + "/tasks", taskRouter);
+app.use(api + "/lists", listRouter);
 app.use(express.json);
 
 app.listen(port, () => {

@@ -7,7 +7,7 @@ class AccountService {
 
     let user = await Account.findOne({ email: email });
     if (!user)
-      return res.status(4000).send("User not found with email " + email);
+      return res.status(400).send("User not found with email " + email);
 
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = jwt.sign(
