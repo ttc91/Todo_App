@@ -7,7 +7,14 @@ function authJwt() {
     secret,
     algorithms: ["HS256"],
   }).unless({
-    path: [`${api}/account/login`, `${api}/account/create`],
+    path: [
+      `${api}/account/login`, 
+      `${api}/account/create`,
+      { url: /\/api\/v1\/List(.*)/, methods: ['POST','GET','DELETE','PUT', 'OPTIONS'] },
+      { url: /\/api\/v1\/Task(.*)/, methods: ['POST','GET','DELETE','PUT', 'OPTIONS'] },
+
+    ],
+    
   });
 }
 
