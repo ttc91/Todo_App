@@ -41,10 +41,9 @@ class ListService {
     }
 
     async delete(req, res) {
-        await List.findByIdAndDelete(req.params.id).then(() => {
-            res.status(200).json({
-                message: "Delete complete !!!"
-            });
+        await List.findByIdAndDelete(req.params.id).then((removedListDoc) => {
+            res.send(removedListDoc);
+            // deleteTasksFromList(removedListDoc._id);
         }).catch((error) => {
             res.status(500).json({
                 error: error,
@@ -83,5 +82,11 @@ class ListService {
         }
     }
 }
-
+let deleteTasksFromList = (listId) => {
+    Task.deleteMany({
+        listId
+    }).then(() => {
+        console.log("Tasks from " + listId + " were deleted!");
+    })
+}
 module.exports = new ListService();

@@ -23,6 +23,9 @@ db.connect();
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 //app.use(cors());
+app.use(cors());
+app.options('*', cors());
+
 app.use(morgan("tiny"));
 app.use(errorHandler);
 
