@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongoosePaginate = require('mongoose-paginate')
 
 const stepSchema = Schema ({
     stepName : {
@@ -15,4 +16,6 @@ const stepSchema = Schema ({
     }
 })
 
+
+stepSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Step', stepSchema);

@@ -1,25 +1,45 @@
 const Step = require("../models/Step");
 
 class StepService {
-  createStep(req, res) {
-    const { taskId, stepName, priority } = req.body;
-    if (!taskId || !stepName || !priority) {
+  async createStep(req, res) {
+    const { taskId, stepName } = req.body;
+    if (!taskId || !stepName) {
       return res
         .status(400)
         .send({ success: false, message: "You must fill all the field." });
     }
-    new Step({ task: taskId, stepName: stepName, priority: priority })
-      .save()
-      .then((newStep) => {
-        return res.status(200).send({
-          success: true,
-          message: "Add step suceessfully !",
-          step: newStep,
-        });
-      })
-      .catch((err) => {
-        return res.status(400).send({ success: false, message: err });
-      });
+    const options = {
+      limit: 1,
+      sort: { priority: "desc" },
+    };
+
+    Step.paginate({ task: taskId }, options, function (err, result) {
+      if (err) {
+        console.log(err);
+        return res.send(err);
+      } else {
+        const latestStep = result.docs[0];
+        const priority = latestStep ? latestStep.priority + 1 : 1;
+
+        new Step({
+          task: taskId,
+          stepName: stepName,
+          priority: priority,
+          isCompleted: false,
+        })
+          .save()
+          .then((newStep) => {
+            return res.status(200).send({
+              success: true,
+              message: "Add step suceessfully !",
+              step: newStep,
+            });
+          })
+          .catch((err) => {
+            return res.status(400).send({ success: false, message: err });
+          });
+      }
+    });
   }
 
   async updateStep(req, res) {
@@ -82,8 +102,27 @@ class StepService {
     return res.send({
       success: true,
       message: "Sucess",
-      lstStep: lstStep,
+      lstStep: lstStep.sort((a, b) => {
+        return a.priority - b.priority;
+      }),
     });
+  }
+
+  async reverseCompleteStep(req, res) {
+    let step = await Step.findById(req.params.id);
+    if (!step)
+      return res
+        .status(400)
+        .send({ success: false, message: "Step not found !" });
+    step.isCompleted = !step.isCompleted;
+    step = await Step.findByIdAndUpdate(step._id, step, { new: true });
+    if (!step)
+      return res
+        .status(400)
+        .send({ success: fasle, message: "Error occur when updating step." });
+    return res
+      .status(200)
+      .send({ success: true, message: "Success", step: step });
   }
 }
 

@@ -58,12 +58,12 @@ Content-Type: application/json
 }
 
 ### Update Step for task
-PUT  http://localhost:3000/api/v1/step
+PUT  http://localhost:3000/api/v1/steps
 x-access-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
 Content-Type: application/json
 
 {
-    "stepId":"636bc0124c3be4fc9276c800",
+    "stepId":"636bcb7f62ba151ecd7385a5",
     "stepName": "Do step 11",
     "priority": "1"
 }
