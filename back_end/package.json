@@ -20,6 +20,8 @@
     "mongoose": "^6.7.1",
     "mongoose-paginate": "^5.0.3",
     "morgan": "^1.10.0",
+    "node-cron": "^3.0.2",
+    "nodemailer": "^6.8.0",
     "nodemon": "^2.0.20",
     "swagger-jsdoc": "^6.2.5",
     "swagger-ui-express": "^4.5.0"
