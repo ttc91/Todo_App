@@ -35,7 +35,7 @@ app.use(api + "/tasks", taskRouter);
 app.use(api + "/lists", listRouter);
 app.use(express.json);
 
-cron.schedule(" * * 0 * * ", () => {
+cron.schedule(" * * 0 * * *", () => {
   console.log("Cron work");
   AccountService.sendMail();
 });

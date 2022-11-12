@@ -1,6 +1,8 @@
 const Task = require("../models/Task");
 const List = require("../models/List");
 const Account = require("../models/Account");
+const { find } = require("../models/Account");
+const Step = require("../models/Step");
 
 class ListService {
   async create(req, res) {
@@ -45,11 +47,24 @@ class ListService {
   }
 
   async delete(req, res) {
-    await List.findByIdAndDelete(req.params.id)
+    const tasks = await Task.find({ list: req.params.id }).select("_id");
+    for (const task of tasks) {
+      await Step.deleteMany({ task: task });
+    }
+    Task.deleteMany({ list: req.params.id })
       .then(() => {
-        res.status(200).json({
-          message: "Delete complete !!!",
-        });
+        List.findByIdAndDelete(req.params.id)
+          .then(async () => {
+            res.status(200).json({
+              message: "Delete complete !!!",
+            });
+          })
+          .catch((error) => {
+            res.status(500).json({
+              error: error,
+              success: false,
+            });
+          });
       })
       .catch((error) => {
         res.status(500).json({
