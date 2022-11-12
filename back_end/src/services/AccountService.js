@@ -2,13 +2,9 @@ const Account = require("../models/Account");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const cron = require("node-cron");
 const Task = require('../models/Task');
 const List = require('../models/List');
 
-const nodemailer = require("nodemailer");
-const List = require("../models/List");
-const Task = require("../models/Task");
 
 class AccountService {
   async login(req, res) {
