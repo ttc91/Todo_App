@@ -6,6 +6,10 @@ const cron = require("node-cron");
 const Task = require('../models/Task');
 const List = require('../models/List');
 
+const nodemailer = require("nodemailer");
+const List = require("../models/List");
+const Task = require("../models/Task");
+
 class AccountService {
   async login(req, res) {
     const { email, password } = req.body;
@@ -48,17 +52,6 @@ class AccountService {
         });
       });
   }
-
-  async get(req, res) {
-    // let id =  req.params.id;
-    let user = await Account.find({});
-    // console.log("=====" + id);
-    // if (!user)
-    //   return res.status(400).send("User not found id " + id);
-    // else
-    return res.status(200).send({ user: user });
-  }
-
   async changePassword(req, res) {
     const { email, oldpassword, newpassword } = req.body;
     let user = await Account.findOne({ email: email });
@@ -81,55 +74,53 @@ class AccountService {
     } else return res.status(400).send("Password is wrong !");
   }
 
-  async sendMail(req, res) {
-    const {second} = req.body;
-    var transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "giangnguyen010801@gmail.com",
-        pass: "yduazmsaehwsubph",
-      },
-    });
+  async sendMail() {
+    try {
+      let transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "giangnguyen010801@gmail.com",
+          pass: "yduazmsaehwsubph",
+        },
+      });
 
-    var mailOptions = {
-      from: "giangnguyen010801@gmail.com",
-      to: "19145369@student.hcmute.edu.vn",
-      subject: "You haven't completed the task yet",
-      text: "Please visit task to check your tasks!",
-    };
-
-
-    let account = await Account.findById(req.params.accountId).exec(); 
-    console.log(account);
-    let lists = [];
-    // let tasks = [] ;
-    let task
-    lists = await List.find({account : account.id}).exec();
-    lists.forEach(function(list, index){
-      task = Task.find({list : list.id}).exec();
-    })
-    console.log(task);
-    // tasks.forEach(function(task, index){
-    //   console.log(task);
-    // })
-  //   for(var i = 0; i < lists.length; i++) {
-  //     let tasks = [];
-  //     tasks = await Task.find({lists[i] : lists[i].id}).exec();
-  // }
-    // console.log(tasks)
-    // cron.schedule(' * * * * * ', ()=>{ 
-    //   console.log("send");
-
-    //   // transporter.sendMail(mailOptions, function (error, info) {
-    //   //   if (error) {
-    //   //     console.log(error);
-    //   //   } else {
-    //   //     console.log("Email sent: " + info.response);
-    //   //   }
-    //   // });
-    // })
-    return res.status(200).send("successs");
+      let mailOptions = {
+        from: "giangnguyen010801@gmail.com",
+        to: "19145369@student.hcmute.edu.vn",
+        subject: "TODO_APP_REMIND",
+        text: "",
+      };
+      const tasks = await Task.find().populate("list").exec();
+      let todayTasks = [];
+      for (const task of tasks) {
+        if (task.remindAt != null) {
+          if (!task.isCompleted && sameDay(task.remindAt, new Date())) {
+            //Task for today then send email
+            if (!task.list) continue;
+            const temp = await List.findById(task.list._id).populate("account");
+            mailOptions.to = temp.account.email;
+            mailOptions.text = `You have a task to complete.\n Please visit task to check your tasks : http://localhost:4200/lists/${temp._id}`;
+            transporter.sendMail(mailOptions, function (error, info) {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log("Email sent: " + info.response);
+              }
+            });
+            todayTasks.push(task);
+          }
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
-
+function sameDay(d1, d2) {
+  return (
+    d1.getFullYear() === d2.getFullYear() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getDate() === d2.getDate()
+  );
+}
 module.exports = new AccountService();

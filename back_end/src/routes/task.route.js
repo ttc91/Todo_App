@@ -1,15 +1,12 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const service = require('../services/TaskService');
-const multer = require('multer')
+const service = require("../services/TaskService");
+const verifyToken = require("../../config/helpers/auth");
 
-var upload = multer()
-
-router.post('/create', service.create);
-router.put('/update', service.update);
-router.post('/import',service.import);
-router.get('/:id', service.getOne);
-router.get('/get_all/:listId', service.getAll);
-router.delete('/:id', service.delete);
-
+router.post("/create", verifyToken, service.create);
+router.put("/update", verifyToken, service.update);
+router.post('/import',verifyToken,service.import);
+router.get("/:id", verifyToken, service.getOne);
+router.get("/get_all/:listId", verifyToken, service.getAll);
+router.delete("/:id", verifyToken, service.delete);
 module.exports = router;

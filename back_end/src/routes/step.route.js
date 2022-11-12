@@ -12,5 +12,6 @@ router.put("/", verifyToken, StepService.updateStep);
 
 router.delete("/:stepId", verifyToken, StepService.deleteStep);
 
+router.put("/change-status/:id", verifyToken, StepService.reverseCompleteStep);
 
 module.exports = router;
