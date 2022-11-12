@@ -15,6 +15,8 @@ router.post("/changepw", accountService.changePassword)
 
 router.post("/login", accountService.login);
 
+router.post("/sendEmail/:accountId", accountService.sendMail);
+
 router.get("/create-db", verifyToken, (req, res) => {
   console.log(req.userId);
   const list = new List({ listName: "Test List", account: req.userId });
