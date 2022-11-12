@@ -13,7 +13,7 @@ POST http://localhost:3000/api/v1/accounts/login
 Content-Type: application/json
 
 {
-    "email":"hoangvanbinh@gmail.com",
+    "email":"thebest11447@gmail.com",
     "password":"123456"
 }
 
@@ -76,10 +76,21 @@ x-access-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQz
 
 
 ### GET STEP
-GET  http://localhost:3000/api/v1/steps/636bb6044c3be4fc9276c709
+GET  http://localhost:3000/api/v1/steps/636bc6604c3be4fc9276c87e
 x-access-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2Njc3OTk1MDcsImV4cCI6MTY2ODQwNDMwN30.x_iRKTCKKeqWjOeOX7G2pjDnrf7Wlm9HYHd_5GG1GIw
 
 
 ###
 GET http://localhost:3000/api/v1/tasks/get_all/63689e628621cf4ab9a904c8
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2NjgwMDMwNTIsImV4cCI6MTY2ODYwNzg1Mn0.qWT3-Z0Iuioy6ZThV5_WEjfj4ixZWGnph8g9gCvQEsY
+
+####
+GET http://localhost:3000/api/v1/lists/get_all
+x-access-token:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2NjgyMTU1MjUsImV4cCI6MTY2ODgyMDMyNX0.IjXgLt0g54vc5ExRQvcqZiyQevvYy9qiemWmWHyZRkQ
+
+
+###
+GET http://localhost:3000/api/v1/tasks/get_all/63689e628621cf4ab9a904c8
+x-access-token:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY4OTkzOGQzMmM5MDE5Y2NkNjQ4YTAiLCJpYXQiOjE2NjgyMTU1MjUsImV4cCI6MTY2ODgyMDMyNX0.IjXgLt0g54vc5ExRQvcqZiyQevvYy9qiemWmWHyZRkQ
+
+

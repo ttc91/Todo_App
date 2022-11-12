@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
-var cron = require('node-cron');
+var cron = require("node-cron");
 
 const accountRouter = require("./src/routes/account.route");
 const stepRouter = require("./src/routes/step.route");
