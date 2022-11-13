@@ -2,7 +2,9 @@ const Account = require("../models/Account");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 class AccountService {
+
   async login(req, res) {
+    
     const { email, password } = req.body;
 
     let user = await Account.findOne({ email: email });

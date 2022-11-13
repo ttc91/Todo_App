@@ -1,0 +1,137 @@
+.todo {
+
+  &-wrapper {
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+  }
+
+  &-main {
+    width: calc(100% - 250px);
+  }
+
+  &-sidebar {
+    background-color: white;
+    height: 100%;
+    width: 280px;
+    box-shadow: 15px 5px 10px -20px grey;
+    padding: 10px;
+
+    &-header {
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      &:hover {
+        background-color: aliceblue;
+      }
+
+      button{
+        width: 50px;
+        border: none;
+        background-color: transparent;
+      }
+
+    }
+
+    .endemic-list-container{
+
+      padding: 10px;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .endemic-list-link{
+
+        ul{
+
+          padding: 0;
+          margin: 0;
+
+          i {
+            margin-right: 15px;
+            color: #292827;
+          }
+
+          a{
+            color: #292827;
+          }
+
+          li {
+            width: 100%;
+            display: block;
+            padding-bottom: 10px;
+            padding-top: 10px;
+
+            &:hover{
+              transform: scale(1.1);
+            }
+          }
+
+        }
+
+
+      }
+
+    }
+
+    .personal-list-container{
+
+      padding: 10px;
+      height: calc(100% - 120px - 50px);
+
+      .personal-list-link{
+
+        ul{
+
+          padding: 0;
+          margin: 0;
+
+          i {
+            margin-right: 15px;
+            color: #292827;
+          }
+
+          a{
+            color: 292827;
+          }
+
+          li {
+
+            .add-list{
+              color: #2564CF;
+            }
+
+            width: 100%;
+            display: block;
+            padding-bottom: 10px;
+            padding-top: 10px;
+
+            &:hover{
+              transform: scale(1.1);
+            }
+          }
+
+        }
+
+
+      }
+
+    }
+
+  }
+
+  &-line{
+
+    width: 100%;
+
+    hr.rounded {
+      border-top: 0.5px solid #E1DFDD;
+      border-radius: 5px;
+      padding-left: 10px;
+    }
+  }
+
+}

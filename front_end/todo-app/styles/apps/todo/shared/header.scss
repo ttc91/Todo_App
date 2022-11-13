@@ -1,0 +1,55 @@
+header{
+  height: 60px;
+  background-color: #2564CF;
+
+  .grid{
+    height: 100%;
+  }
+
+  .tools{
+    display: block;
+    height: 100%;
+  }
+
+  .search-nav{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .account-nav{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .title-nav{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 20px;
+
+    a{
+      color: white;
+      font-weight: 700;
+    }
+
+  }
+
+  .setting-nav{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 5px;
+
+    a{
+      color: white;
+      font-weight: 700;
+      position: absolute;
+      right: 0;
+      margin-right: 50px;
+    }
+
+  }
+
+}
