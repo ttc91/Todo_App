@@ -2,6 +2,7 @@ const Task = require("../models/Task");
 const List = require("../models/List");
 const multer = require("multer");
 const path = require("path");
+const { findOneAndUpdate } = require("../models/Task");
 
 var storage = multer.memoryStorage({
   destination: function (req, file, cb) {
@@ -39,6 +40,8 @@ class TaskService {
 
     let task = await Task({
       taskName: req.body.taskName,
+      note: req.body.taskNote,
+      deadline: req.body.deadline,
       list: list._id,
     });
 
@@ -55,8 +58,8 @@ class TaskService {
       });
   }
 
-  async update(req, res) {
-    let task = await Task.findByIdAndUpdate(
+  update(req, res) {
+    let task = Task.findByIdAndUpdate(
       req.body.id,
       {
         taskName: req.body.taskName,
@@ -74,7 +77,7 @@ class TaskService {
         rawResult: true,
       }
     )
-      .then(() => {
+      .then((task) => {
         res.status(200).json(task);
       })
       .catch((error) => {
@@ -112,6 +115,20 @@ class TaskService {
     }
   }
 
+  async updateNote(req, res) {
+    let task = await Task.findById(req.body.taskId).exec();
+    if (!task)
+      return res
+        .status(400)
+        .json({ success: false, message: "Task not found !" });
+    task.note = req.body.note;
+    task = await Task.findOneAndUpdate(task._id, task, { new: true });
+    if (!task)
+      return res
+        .status(400)
+        .json({ success: false, message: "Unable to update task Note !" });
+    res.status(200).json(task);
+  }
   async getAll(req, res) {
     let list = await List.findById(req.params.listId).exec();
     if (!list)

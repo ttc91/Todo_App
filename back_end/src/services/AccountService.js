@@ -56,9 +56,6 @@ class AccountService {
     if (!user)
       return res.status(4000).send("User not found with email " + email);
 
-<<<<<<< HEAD
-module.exports = new AccountService();
-=======
     if (user && bcrypt.compareSync(oldpassword, user.password)) {
       user.password = bcrypt.hashSync(newpassword, 10);
       await user
@@ -125,4 +122,3 @@ function sameDay(d1, d2) {
   );
 }
 module.exports = new AccountService();
->>>>>>> f4ee07e5889cbc2517cfd6ea9720657b7b768e70
