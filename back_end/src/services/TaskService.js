@@ -58,8 +58,8 @@ class TaskService {
       });
   }
 
-  update(req, res) {
-    let task = Task.findByIdAndUpdate(
+  async update(req, res) {
+    let task = await Task.findByIdAndUpdate(
       req.body.id,
       {
         taskName: req.body.taskName,
@@ -72,20 +72,11 @@ class TaskService {
         file: req.body.file,
       },
       {
-        new: true,
-        upsert: true,
-        rawResult: true,
+        new: true
       }
-    )
-      .then((task) => {
-        res.status(200).json(task);
-      })
-      .catch((error) => {
-        res.status(500).json({
-          error: error,
-          success: false,
-        });
-      });
+    );
+    if (task) res.status(200).json(task);
+    else res.status(500).json({ success: false, message: "error" });
   }
 
   async delete(req, res) {

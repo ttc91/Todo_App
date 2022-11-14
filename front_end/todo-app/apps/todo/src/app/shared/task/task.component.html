@@ -1,30 +1,40 @@
-<div class="task-list-container">
-    <div class="task-list-title">
-        <i class="task-list-icon pi pi-sun"></i>
-        <h3 style="display: inline">My Today</h3>
-        <div>
-            <p>Sunday, 13 November</p>
+<div class="task-list-container grid">
+    <div class="col-9">
+        <div class="task-list-title">
+            <i class="task-list-icon pi pi-sun"></i>
+            <h3 style="display: inline">My Today</h3>
+            <div>
+                <p>Sunday, 13 November</p>
+            </div>
+        </div>
+
+        <div class="task-list-add">
+            <div class="task-list-add-input">
+                <i class="pi pi-circle"></i>
+                <input type="text" name="task-list-add-input" id="task-list-add-input" placeholder="Input task name..." />
+            </div>
+
+            <div class="task-list-add-tool">
+                <button class="task-button-deadline"><i class="pi pi-calendar"></i></button>
+                <button class="task-button-remind"><i class="pi pi-bell"></i></button>
+                <button class="task-button-add">Add</button>
+            </div>
+        </div>
+
+        <div class="task-list-item">
+            <div
+                id="task-list-item-1"
+                class="task-list"
+                *ngFor="let task of tasks"
+                [routerLink]="['./', { outlets: { taskDetailOutlet: ['tasks', task._id] } }]"
+            >
+                <i class="task-list-icon pi pi-circle"></i>
+                <i class="task-list-icon pi pi-star"></i>
+                <p style="display: inline">{{ task.taskName }}</p>
+            </div>
         </div>
     </div>
-
-    <div class="task-list-add">
-        <div class="task-list-add-input">
-            <i class="pi pi-circle"></i>
-            <input type="text" name="task-list-add-input" id="task-list-add-input" placeholder="Input task name..." />
-        </div>
-
-        <div class="task-list-add-tool">
-            <button class="task-button-deadline"><i class="pi pi-calendar"></i></button>
-            <button class="task-button-remind"><i class="pi pi-bell"></i></button>
-            <button class="task-button-add">Add</button>
-        </div>
-    </div>
-
-    <div class="task-list-item">
-        <div id="task-list-item-1" class="task-list" *ngFor="let task of tasks">
-            <i class="task-list-icon pi pi-circle"></i>
-            <i class="task-list-icon pi pi-star"></i>
-            <p style="display: inline">{{ task.taskName }}</p>
-        </div>
+    <div class="col-2">
+        <router-outlet name="taskDetailOutlet"></router-outlet>
     </div>
 </div>

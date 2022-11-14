@@ -10,6 +10,9 @@ router.post("/", verifyToken, StepService.createStep);
 
 router.put("/", verifyToken, StepService.updateStep);
 
+router.put("/all", verifyToken, StepService.updateAllStep);
+
+
 router.delete("/:stepId", verifyToken, StepService.deleteStep);
 
 router.put("/change-status/:id", verifyToken, StepService.reverseCompleteStep);

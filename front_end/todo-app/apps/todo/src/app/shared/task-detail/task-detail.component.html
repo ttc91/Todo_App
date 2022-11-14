@@ -1,48 +1,68 @@
-<div class="task-detail-sidebar">
-  <div class="task-title">
+<p-toast position="top-right" class="toast-info" [style]="{ background: 'white' }"></p-toast>
+<div class="right-sidebar" *ngIf="task">
+    <div class="task-detail-sidebar">
+        <div class="task-title">
+            <div class="task-title-content">
+                <p><i class="pi pi-circle" [ngClass]="{ 'pi-check-circle': task.isCompleted }"></i>{{ task.taskName }}</p>
+            </div>
+            <div cdkDropList class="movie-list" (cdkDropListDropped)="drop($event)">
+                <div class="task-step movie-block" *ngFor="let step of steps" cdkDrag>
+                    <i class="pi pi-circle" [ngClass]="{ 'pi-check-circle': step.isCompleted }" (click)="reverseStepStatus(step._id)"></i>
+                    <input class="task-step-input main-input" [(ngModel)]="step.stepName" (ngModelChange)="inputStepNameChange(step._id)" />
+                    <i class="pi pi-times" (click)="onDeleteStepClick(step._id)"></i>
+                </div>
+            </div>
+            <div class="task-step">
+                <i class="pi pi-plus"></i>
+                <input class="task-step-input main-input" type="text" placeholder="Add step" [(ngModel)]="addStep" />
+                <a (click)="onAddstepClick()" *ngIf="addStep">Add</a>
+            </div>
+        </div>
 
-    <div class="task-title-content">
-      <p><i class="pi pi-circle"></i>Task title</p>
+        <div class="task-my-day">
+            <p><i class="pi pi-sun"></i>Add to my day</p>
+        </div>
+
+        <div class="task-tool">
+            <div class="task-remind-me">
+                <p><i class="pi pi-bell"></i>Remind me</p>
+            </div>
+
+            <div class="task-deadline">
+                <i class="pi pi-calendar-minus"></i>
+                <input #inputTaskDeadline type="datetime-local" [value]="toDatimeLocal(task.deadline)" />
+                <i class="pi pi-check update" (click)="updateDeadline(inputTaskDeadline.value)"></i>
+            </div>
+        </div>
+
+        <div class="task-file">
+            <p><i class="pi pi-file-import"></i>Upload file</p>
+        </div>
+
+        <div class="task-note">
+            <textarea
+                placeholder="Add note"
+                class="task-note-value main-input"
+                id="task-note-value"
+                name="task-note-value"
+                [(ngModel)]="task.note"
+                (ngModelChange)="updateTaskNote(task._id)"
+            ></textarea>
+        </div>
+
+        <div class="task-detail-bottom">
+            <hr />
+            <div class="task-detail-tool">
+                <i class="pi pi-arrow-circle-right"></i>
+                <p>Updated yesterday</p>
+                <i class="pi pi-trash"></i>
+            </div>
+        </div>
     </div>
-
-    <div class="task-step">
-      <i class="pi pi-circle"></i>
-      <input class="task-step-input main-input" placeholder="Add step">
-    </div>
-
-  </div>
-
-  <div class="task-my-day">
-    <p><i class="pi pi-sun"></i>Add to my day</p>
-  </div>
-
-  <div class="task-tool">
-
-    <div class="task-remind-me">
-      <p><i class="pi pi-bell"></i>Remind me</p>
-    </div>
-
-    <div class="task-deadline">
-      <p><i class="pi pi-calendar-minus"></i>Deadline</p>
-    </div>
-
-  </div>
-
-  <div class="task-file">
-    <p><i class="pi pi-file-import"></i>Upload file</p>
-  </div>
-
-  <div class="task-note">
-    <textarea placeholder="Add note" class="task-note-value main-input" id="task-note-value" name="task-note-value"></textarea>
-  </div>
-
-  <div class="task-detail-bottom">
-      <hr>
-      <div class="task-detail-tool">
-        <i class="pi pi-arrow-circle-right"></i>
-        <p>Updated yesterday</p>
-        <i class="pi pi-trash"></i>
-      </div>
-  </div>
-
 </div>
+<p-confirmDialog
+    class="confirm-dialog"
+    [style]="{ width: '25%', background: '#27d7a1' }"
+    [baseZIndex]="10000"
+    rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>

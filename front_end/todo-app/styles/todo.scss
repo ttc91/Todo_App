@@ -17,10 +17,54 @@
 @import './apps/todo/shared/task.scss';
 
 .container {
-  margin: 0 auto;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
 }
 
-.main-input::placeholder{
-  font-family: 'Open Sans', sans-serif;
-  font-size: 15px;
+.main-input::placeholder {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+}
+
+
+//When drag element is created at the root body so we need to put another css here
+.task-step {
+    a {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 15px;
+        color: #2564cf;
+
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+    .pi {
+        color: #2564cf;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    p {
+        color: #2564cf;
+    }
+
+    background-color: white;
+    border-radius: 0px 0px 5px 5px;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+
+    &-input {
+        border: none;
+        height: 100%;
+        width: 80%;
+        &:focus,
+        :active {
+            border: none;
+            outline: none;
+        }
+    }
 }

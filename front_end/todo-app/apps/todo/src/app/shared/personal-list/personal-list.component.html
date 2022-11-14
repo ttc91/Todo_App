@@ -1,8 +1,8 @@
 <div class="personal-list-container">
     <div class="personal-list-link">
         <ul>
-            <li *ngFor="let list of lists">
-                <i class="pi pi-list"></i> <a [routerLink]="[{ outlets: { taskOutlet: [list._id] } }]">{{ list.listName }}</a>
+            <li *ngFor="let list of lists" [routerLink]="['', { outlets: { taskOutlet: ['lists', list._id] } }]">
+                <i class="pi pi-list"></i> <a>{{ list.listName }}</a>
             </li>
         </ul>
     </div>

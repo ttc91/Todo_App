@@ -45,7 +45,6 @@ class StepService {
   async updateStep(req, res) {
     const { stepId, stepName, priority } = req.body;
     if (!stepId || !stepName || !priority) {
-      console.log(stepId + stepName + priority);
       return res
         .status(400)
         .send({ success: false, message: "You must fill all the field." });
@@ -69,6 +68,33 @@ class StepService {
       message: "Update step successfully !",
       step: step,
     });
+  }
+
+  async updateAllStep(req, res) {
+    const steps = req.body.steps;
+    if (!steps || steps.length == 0) {
+      return res
+        .status(400)
+        .send({ success: false, message: "You must fill all the field." });
+    }
+    try {
+      for (const step of steps) {
+        await Step.updateOne(
+          { _id: step._id },
+          {
+            $set: {
+              priority: step.priority,
+            },
+          }
+        );
+      }
+      return res.status(200).send({
+        success: true,
+        message: "Update step successfully !",
+      });
+    } catch (error) {
+      return res.status(500).send("Error");
+    }
   }
 
   async deleteStep(req, res) {

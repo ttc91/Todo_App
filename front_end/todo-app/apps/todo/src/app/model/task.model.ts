@@ -1,11 +1,11 @@
 export class Task {
-    _id?: string
-    taskName?: string
-    note?: string
-    isCompleted?: boolean
+    _id!: string
+    taskName!: string
+    note!: string
+    isCompleted!: boolean
     isImportant?: boolean
     isToday?: false
-    deadline?: Date
+    deadline!: Date | null
     remindAt?: string
     file?: string
     list?: string

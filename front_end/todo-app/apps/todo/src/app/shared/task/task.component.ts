@@ -9,7 +9,6 @@ import { Task } from '../../model/task.model'
 export class TaskComponent implements OnInit {
     selectedListId = ''
     tasks: Task[] = []
-    selectedTask = null
     constructor(private taskService: TaskService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit(): void {
@@ -19,12 +18,10 @@ export class TaskComponent implements OnInit {
                 this.taskService.getTasksOfList(params['listId']).subscribe(
                     (response: any) => {
                         this.tasks = response.tasks
-                        console.log(this.tasks)
                     },
                     (err) => {}
                 )
             }
-            this.selectedTask = null
         })
     }
 }

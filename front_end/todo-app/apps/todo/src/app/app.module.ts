@@ -23,16 +23,25 @@ import { ConfirmationService, MessageService } from 'primeng/api'
 import { ConfirmDialogModule } from 'primeng/confirmdialog'
 import { ToastModule } from 'primeng/toast'
 import { SignupPageComponent } from './pages/signup-page/signup-page.component'
+import { FormsModule } from '@angular/forms'
+import { DragDropModule } from '@angular/cdk/drag-drop'
 
 const routes: Routes = [
     { path: 'login', component: LoginPageComponent },
     { path: 'signup', component: SignupPageComponent },
 
     {
-        path: 'lists',
+        path: '',
         component: HomePageComponent,
-        // canActivate: [AuthGuardService],
-        children: [{ path: ':listId', component: TaskComponent, outlet: 'taskOutlet' }],
+        canActivate: [AuthGuardService],
+        children: [
+            {
+                path: 'lists/:listId',
+                component: TaskComponent,
+                outlet: 'taskOutlet',
+                children: [{ path: 'tasks/:taskId', component: TaskDetailComponent, outlet: 'taskDetailOutlet' }],
+            },
+        ],
     },
 
     // {
@@ -63,7 +72,16 @@ const routes: Routes = [
         TaskDetailComponent,
         SignupPageComponent,
     ],
-    imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes), ConfirmDialogModule, ToastModule],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        RouterModule.forRoot(routes),
+        ConfirmDialogModule,
+        ToastModule,
+        FormsModule,
+        DragDropModule
+    ],
     providers: [MessageService, ConfirmationService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
     bootstrap: [AppComponent],
 })
