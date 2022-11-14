@@ -22,7 +22,7 @@ export class LoginPageComponent implements OnInit {
         this.accountService.login(email, password).subscribe(
             (response: any) => {
                 this.localStorageService.setToken(response.token)
-                this.router.navigate(['/home'])
+                this.router.navigate(['/'])
             },
             (error) => {
                 this.messageService.add({

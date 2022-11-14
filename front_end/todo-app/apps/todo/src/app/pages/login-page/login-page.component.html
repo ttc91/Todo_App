@@ -1,9 +1,11 @@
 <p-toast position="top-right" class="toast-info" [style]="{ background: 'white' }"></p-toast>
 <div class="login-container">
+  
     <img src="assets/images/logo.png" />
     <h2 style="color: #2564cf; text-align: center">Login</h2>
-    <input #usernameInput placeholder="Username" name="username" id="username" type="text" />
-    <input #passwordInput placeholder="Password" name="password" id="password" type="password" />
-    <button (click)="login(usernameInput.value, passwordInput.value)">Login</button>
-    <a href="/signup">Sign up ?</a>
+    <input #username placeholder="Username" name="username" id="username" type="text" />
+    <input #password placeholder="Password" name="password" id="password" type="password" />
+    <button (click)="login(username.value, password.value)">Login</button>
+    <a routerLink="/signup">Sign up ?</a>
+
 </div>

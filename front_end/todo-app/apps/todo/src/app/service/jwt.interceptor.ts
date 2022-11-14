@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment'
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
+  
     constructor(private localstorageToken: LocalstorageService) {}
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {

@@ -27,6 +27,7 @@ import { FormsModule } from '@angular/forms'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 
 const routes: Routes = [
+  
     { path: 'login', component: LoginPageComponent },
     { path: 'signup', component: SignupPageComponent },
 

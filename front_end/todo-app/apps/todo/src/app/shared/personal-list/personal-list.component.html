@@ -4,6 +4,9 @@
             <li *ngFor="let list of lists" [routerLink]="['', { outlets: { taskOutlet: ['lists', list._id] } }]">
                 <i class="pi pi-list"></i> <a>{{ list.listName }}</a>
             </li>
+            <li>
+              
+            </li>
         </ul>
     </div>
 </div>

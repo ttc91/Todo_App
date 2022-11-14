@@ -8,6 +8,7 @@ import { MessageService, ConfirmationService } from 'primeng/api'
     styles: [],
 })
 export class SignupPageComponent implements OnInit {
+
     constructor(
         private accountService: AccountService,
         private router: Router,
@@ -27,7 +28,6 @@ export class SignupPageComponent implements OnInit {
         }
         this.accountService.signup(email, password).subscribe(
             (response: any) => {
-                //  this.localStorageService.setToken(response.token)
                 this.confirmationService.confirm({
                     message: `Do you want to go to the login page ?`,
                     header: 'Sign up successfully !',

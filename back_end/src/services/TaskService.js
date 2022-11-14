@@ -2,21 +2,21 @@ const Task = require("../models/Task");
 const List = require("../models/List");
 const multer = require("multer");
 const path = require("path");
-const { findOneAndUpdate } = require("../models/Task");
 
 var storage = multer.memoryStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
+    cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 
 class TaskService {
+
   async import(req, res) {
+
     let upload = multer({ storage: storage }).single("file");
-    // const buffer = upload.
     upload(req, res, async function (err) {
       var buffer = req.file.buffer;
       console.log(buffer);
@@ -34,8 +34,10 @@ class TaskService {
         `You have uploaded this image: <hr/><img src="${req.file.path}" width="500"><hr /><a href="./">Upload another image</a>`
       );
     });
+
   }
   async create(req, res) {
+
     let list = await List.findById(req.body.listId).exec();
 
     let task = await Task({
@@ -56,9 +58,11 @@ class TaskService {
           success: false,
         });
       });
+
   }
 
   async update(req, res) {
+
     let task = await Task.findByIdAndUpdate(
       req.body.id,
       {
@@ -77,9 +81,11 @@ class TaskService {
     );
     if (task) res.status(200).json(task);
     else res.status(500).json({ success: false, message: "error" });
+
   }
 
   async delete(req, res) {
+
     await Task.findByIdAndDelete(req.params.id)
       .then(() => {
         res.status(200).json({
@@ -92,9 +98,11 @@ class TaskService {
           success: false,
         });
       });
+
   }
 
   async getOne(req, res) {
+
     let task = await Task.findById(req.params.id).exec();
 
     if (task != null) {
@@ -104,9 +112,11 @@ class TaskService {
         message: "Cannot get data !",
       });
     }
+
   }
 
   async updateNote(req, res) {
+
     let task = await Task.findById(req.body.taskId).exec();
     if (!task)
       return res
@@ -137,6 +147,7 @@ class TaskService {
       });
     }
   }
+  
 }
 
 module.exports = new TaskService();
