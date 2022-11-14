@@ -19,4 +19,12 @@ export class ListService {
       return this.http.post(`${environment.apiUrl}/lists/create`, list);
     }
 
+    updateList(list: List) {
+        return this.http.put(`${environment.apiUrl}/lists/update`, list);
+    }
+
+    
+    deleteList(id: string) {
+        return this.http.delete(`${environment.apiUrl}/lists/${id}`);
+    }
 }

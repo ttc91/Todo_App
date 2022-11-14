@@ -1,0 +1,25 @@
+.vertical-menu {
+    max-height: 40em;
+    overflow-y: auto;
+}
+
+.vertical-menu a {
+    display: block;
+    padding: 1em;
+    text-decoration: none;
+}
+
+.vertical-menu li input{
+    width: 70%;
+    height: 80%;
+    cursor: pointer;
+    border: solid 2px;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+
+button{
+    cursor: pointer;
+    margin: 2px;
+}
+

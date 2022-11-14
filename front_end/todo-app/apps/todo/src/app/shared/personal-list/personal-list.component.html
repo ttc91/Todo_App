@@ -1,11 +1,21 @@
 <div class="personal-list-container">
     <div class="personal-list-link">
         <ul>
-            <li *ngFor="let list of lists" [routerLink]="['', { outlets: { taskOutlet: ['lists', list._id] } }]">
-                <i class="pi pi-list"></i> <a>{{ list.listName }}</a>
-            </li>
+            <div class="vertical-menu">
+                <li *ngFor="let list of lists" [routerLink]="['', { outlets: { taskOutlet: ['lists', list._id] } }]">
+                    <i class="pi pi-list"></i>
+                    <input class="personal-list-add-button" #listNameUpdate [value]="list.listName" />
+                    <button style="background-color: #b3fca2;">
+                        <i style="margin: 0;" class="pi pi-save" (click)="updateList(listNameUpdate.value, list._id!)"></i>
+                    </button>
+                    <button style="background-color: #fe5c5c;">
+                        <i style="margin: 0;" class="pi pi-trash" (click)="deleteList(list._id!)"></i>
+                    </button>
+                </li>
+            </div>
             <li class="personal-list-add">
-              <i class="pi pi-plus add-list"></i> <input class="personal-list-add-button" #listNameInput placeholder="Add list"/> <button (click)="createList(listNameInput.value)">Create</button>
+                <i class="pi pi-plus add-list"></i> <input class="personal-list-add-button" #listNameInput placeholder="Add list" />
+                <button (click)="createList(listNameInput.value)">Create</button>
             </li>
         </ul>
     </div>

@@ -27,9 +27,10 @@ class ListService {
 
   async update(req, res) {
     let list = List.findByIdAndUpdate(
-      req.body.id,
+      req.body._id,
       {
         listName: req.body.listName,
+        update:Date.now
       },
       {
         new: true,
