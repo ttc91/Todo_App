@@ -1,11 +1,10 @@
 const Task = require("../models/Task");
 const List = require("../models/List");
 const Account = require("../models/Account");
-const { find } = require("../models/Account");
 const Step = require("../models/Step");
 
 class ListService {
-  
+
   async create(req, res) {
     let account = await Account.findById(req.userId).exec();
     let list = await List({

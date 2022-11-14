@@ -95,17 +95,62 @@
           padding: 0;
           margin: 0;
 
+          li{
+            height: 30px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            padding-left: 5px;
+
+            &:hover {
+              background-color: #EFF6FC;
+            }
+
+            i{
+              margin-right: 10px;
+            }
+
+          }
+
           .personal-list-add {
-            li {
 
-              i{
-                color: #2564CF;
-              }
+            display: flex;
+            align-items: center;
 
-              input{
+            i{
+              color: #2564CF;
+            }
+
+            input{
+              border: none;
+              height: 100%;
+              background-color: transparent;
+              font-family: 'Open Sans', sans-serif;
+              font-size: 15px;
+              &:focus, :active{
                 border: none;
+                outline: none;
               }
             }
+
+            button{
+              height: 100%;
+              border: none;
+              background-color: transparent;
+              font-family: 'Open Sans', sans-serif;
+              color: #2564CF;
+              &:hover{
+                background-color: rgba(255, 0, 0, 0.52);
+                color: white;
+              }
+
+            }
+
+            &:hover{
+              background-color: transparent;
+            }
+
           }
 
         }
