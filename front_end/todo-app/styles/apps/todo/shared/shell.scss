@@ -14,6 +14,7 @@
   }
 
   &-sidebar {
+
     background-color: white;
     height: 100%;
     width: 280px;
@@ -21,6 +22,7 @@
     padding: 10px;
     position: absolute;
     left: 0;
+
     &-header {
       height: 50px;
       display: flex;
@@ -93,28 +95,16 @@
           padding: 0;
           margin: 0;
 
-          i {
-            margin-right: 15px;
-            color: #292827;
-          }
+          .personal-list-add {
+            li {
 
-          a{
-            color: 292827;
-          }
+              i{
+                color: #2564CF;
+              }
 
-          li {
-
-            .add-list{
-              color: #2564CF;
-            }
-
-            width: 100%;
-            display: block;
-            padding-bottom: 10px;
-            padding-top: 10px;
-
-            &:hover{
-              transform: scale(1.1);
+              input{
+                border: none;
+              }
             }
           }
 

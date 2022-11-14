@@ -19,4 +19,15 @@ export class PersonalListComponent implements OnInit {
             (err) => {}
         )
     }
+
+    createList(listName: string) : void{
+
+      const list : List = {
+        listName: listName
+      };
+      listName = "";
+
+      this.listService.createList(list).subscribe();
+      this.ngOnInit();
+    }
 }

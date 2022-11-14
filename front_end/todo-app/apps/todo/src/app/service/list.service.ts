@@ -14,4 +14,9 @@ export class ListService {
     getUserLists(): Observable<List[]> {
         return this.http.get<List[]>(`${environment.apiUrl}/lists/get_all`)
     }
+
+    createList(list: List) {
+      return this.http.post(`${environment.apiUrl}/lists/create`, list);
+    }
+
 }

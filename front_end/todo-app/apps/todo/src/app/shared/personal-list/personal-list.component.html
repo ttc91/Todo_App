@@ -4,8 +4,8 @@
             <li *ngFor="let list of lists" [routerLink]="['', { outlets: { taskOutlet: ['lists', list._id] } }]">
                 <i class="pi pi-list"></i> <a>{{ list.listName }}</a>
             </li>
-            <li>
-              
+            <li class="personal-list-add">
+              <i class="pi pi-plus add-list"></i> <input class="personal-list-add-button" #listNameInput placeholder="Add list"/> <button (click)="createList(listNameInput.value)">Create</button>
             </li>
         </ul>
     </div>
