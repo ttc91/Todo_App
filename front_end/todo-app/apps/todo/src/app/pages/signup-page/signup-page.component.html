@@ -1,0 +1,17 @@
+<p-toast position="top-right" class="toast-info" [style]="{ background: 'white' }"></p-toast>
+<div class="login-container">
+    <img src="assets/images/logo.png" />
+    <h2 style="color: #2564cf; text-align: center">Sign up</h2>
+    <input #usernameInput placeholder="Username" name="username" id="username" type="text" />
+    <input #passwordInput placeholder="Password" name="password" id="password" type="password" />
+    <input #passwordConfirmInput placeholder="Password Confirm" name="passwordConfirm" id="passwordConfirm" type="password" />
+
+    <button (click)="signup(usernameInput.value, passwordInput.value, passwordConfirmInput.value)">Sign up</button>
+    <a href="/login">Already have an account ? </a>
+</div>
+<p-confirmDialog
+    class="confirm-dialog"
+    [style]="{ width: '25%', background: '#27d7a1' }"
+    [baseZIndex]="10000"
+    rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>

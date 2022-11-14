@@ -94,7 +94,7 @@ class ListService {
     if (lists != null) {
       res.status(200).json({ lists });
     } else {
-      res.status(500).json({
+      res.status(400).json({
         message: "Cannot get list data !",
       });
     }
