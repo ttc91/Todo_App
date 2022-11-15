@@ -3,7 +3,7 @@ export class Task {
     taskName?: string
     note!: string
     isCompleted!: boolean
-    isImportant?: boolean
+    isImportant!: boolean
     isToday?: false
     deadline!: Date | null
     remindAt?: string

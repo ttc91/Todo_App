@@ -30,7 +30,7 @@ export class TaskComponent implements OnInit {
 
     }
 
-    setRemind() {
+    setImportant () {
       this.isImportant == false ? this.isImportant = true : this.isImportant = false;
       console.log(this.isImportant);
     }
@@ -52,11 +52,26 @@ export class TaskComponent implements OnInit {
       }
 
       this.taskService.createTask(task).subscribe();
-      this.ngOnInit();
-
       this.isImportant = false;
       this.taskName = '';
+      this.ngOnInit();
 
+    }
+
+    updateTaskIsCompleted(taskId: string, isCompleted: boolean) {
+
+      isCompleted == true ? isCompleted = false : isCompleted = true;
+
+      this.taskService.updateTaskIsCompleted(taskId, isCompleted).subscribe();
+      this.ngOnInit();
+    }
+
+    updateTaskIsImportant(taskId: string, isImportant: boolean) {
+
+      isImportant == true ? isImportant = false : isImportant = true;
+
+      this.taskService.updateTaskIsImportant(taskId, isImportant).subscribe();
+      this.ngOnInit();
     }
 
 }

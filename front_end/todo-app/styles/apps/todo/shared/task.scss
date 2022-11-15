@@ -121,6 +121,23 @@
 
     .task-list{
 
+      &-status{
+
+        .state-true{
+          display: none;
+        }
+
+        &:hover{
+          .state-true{
+            display: block;
+          }
+          .state-false{
+            display: none;
+          }
+        }
+
+      }
+
       width: 100%;
       height: 50px;
       margin-bottom: 15px;

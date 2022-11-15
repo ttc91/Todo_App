@@ -15,8 +15,32 @@ export class TaskService {
     }
 
     getTasksList(listId: string) : Observable<Task[]> {
-        return this.http.get<Task[]>(`${environment.apiUrl}/tasks/${listId}`)
+        return this.http.get<Task[]>(`${environment.apiUrl}/tasks/${listId}`);
     }
+
+    updateTaskIsCompleted(taskId: string, isCompleted: boolean) : Observable<Task>{
+        const task : Task = {
+          _id: taskId,
+          isCompleted: isCompleted,
+          note: '',
+          deadline: null,
+          listId: '',
+          isImportant: false
+        }
+        return this.http.post<Task>(`${environment.apiUrl}/tasks/update/is_complete`, task);
+    }
+
+    updateTaskIsImportant(taskId: string, isImportant: boolean) : Observable<Task>{
+      const task : Task = {
+        _id: taskId,
+        isImportant: isImportant,
+        note: '',
+        deadline: null,
+        listId: '',
+        isCompleted: false
+      }
+      return this.http.post<Task>(`${environment.apiUrl}/tasks/update/is_important`, task);
+  }
 
     getTaskById(taskId: string) {
         return this.http.get(`${environment.apiUrl}/tasks/${taskId}`)

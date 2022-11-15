@@ -16,7 +16,7 @@
 
             <div class="task-list-add-tool">
                 <button id="dateBtn" class="task-button-deadline"><i class="pi pi-calendar"></i></button>
-                <button (click)="setRemind()" class="task-button-remind"><i class="pi pi-star"></i></button>
+                <button (click)="setImportant()" class="task-button-remind"><i class="pi pi-star"></i></button>
                 <button (click)="createTask()" class="task-button-add">Add</button>
             </div>
         </div>
@@ -24,9 +24,12 @@
         <div class="task-list-item">
             <div
                 class="task-list" *ngFor="let task of tasks">
-                <i class="task-list-icon pi pi-circle"></i>
-                <i class="task-list-icon pi pi-star"></i>
-                <p style="display: inline">{{ task.taskName }}</p>
+                <div class="task-list-status" (click)="updateTaskIsCompleted(task._id, task.isCompleted)">
+                  <i [ngClass] = "[task.isCompleted ? 'state-true' : 'state-false', 'task-list-icon pi pi-circle']"></i>
+                  <i [ngClass]= "[task.isCompleted ? 'state-false' : 'state-true', 'task-list-icon pi pi-check-circle']"></i>
+                </div>
+                <i [ngClass] ="[task.isImportant ? 'pi pi-star-fill' : 'pi pi-star', 'task-list-icon']" (click)="updateTaskIsImportant(task._id, task.isImportant)"></i>
+                <p [ngStyle]="{ 'display': 'inline;', 'text-decoration' : (task.isCompleted) ? 'line-through' : 'none'}">{{ task.taskName }}</p>
             </div>
         </div>
     </div>

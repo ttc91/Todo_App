@@ -85,6 +85,38 @@ class TaskService {
 
   }
 
+  async updateIsCompleted(req, res) {
+
+    let task = await Task.findByIdAndUpdate(
+      req.body._id,
+      {
+        isCompleted: req.body.isCompleted,
+      },
+      {
+        new: true
+      }
+    );
+    if (task) res.status(200).json(task);
+    else res.status(500).json({ success: false, message: "error" });
+
+  }
+
+  async updateIsImportant(req, res) {
+
+    let task = await Task.findByIdAndUpdate(
+      req.body._id,
+      {
+        isImportant: req.body.isImportant,
+      },
+      {
+        new: true
+      }
+    );
+    if (task) res.status(200).json(task);
+    else res.status(500).json({ success: false, message: "error" });
+
+  }
+
   async delete(req, res) {
 
     await Task.findByIdAndDelete(req.params.id)
