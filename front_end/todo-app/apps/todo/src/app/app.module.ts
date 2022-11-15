@@ -36,17 +36,11 @@ const routes: Routes = [
         canActivate: [AuthGuardService],
         children: [
             {
-                path: 'lists/:listId',
-                component: TaskComponent,
-                outlet: 'taskOutlet',
-                children: [{ path: 'tasks/:taskId', component: TaskDetailComponent, outlet: 'taskDetailOutlet' }],
+                path: 'tasks/:listId',
+                component: TaskComponent
+                // children: [{ path: 'tasks/:taskId', component: TaskDetailComponent, outlet: 'taskDetailOutlet' }],
             },
         ],
-    },
-    {
-        path: 'tasks/:listId',
-        component: TaskComponent,
-        canActivate: [AuthGuardService],
     },
     // {
     //     path: 'task-detail',

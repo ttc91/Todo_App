@@ -11,23 +11,19 @@
         <div class="task-list-add">
             <div class="task-list-add-input">
                 <i class="pi pi-circle"></i>
-                <input type="text" name="task-list-add-input" id="task-list-add-input" placeholder="Input task name..." />
+                <input [(ngModel)]="taskName" type="text" name="task-list-add-input" id="task-list-add-input" placeholder="Input task name..." />
             </div>
 
             <div class="task-list-add-tool">
-                <button class="task-button-deadline"><i class="pi pi-calendar"></i></button>
-                <button class="task-button-remind"><i class="pi pi-bell"></i></button>
-                <button class="task-button-add">Add</button>
+                <button id="dateBtn" class="task-button-deadline"><i class="pi pi-calendar"></i></button>
+                <button (click)="setRemind()" class="task-button-remind"><i class="pi pi-star"></i></button>
+                <button (click)="createTask()" class="task-button-add">Add</button>
             </div>
         </div>
 
         <div class="task-list-item">
             <div
-                id="task-list-item-1"
-                class="task-list"
-                *ngFor="let task of tasks"
-                [routerLink]="['./', { outlets: { taskDetailOutlet: ['tasks', task._id] } }]"
-            >
+                class="task-list" *ngFor="let task of tasks">
                 <i class="task-list-icon pi pi-circle"></i>
                 <i class="task-list-icon pi pi-star"></i>
                 <p style="display: inline">{{ task.taskName }}</p>
@@ -37,4 +33,16 @@
     <div class="col-2">
         <router-outlet name="taskDetailOutlet"></router-outlet>
     </div>
+
+    <script>
+      $(document).ready(function () {
+          $("#dateBtn").click(function (e) {
+            $( "#dateBtn" ).datepicker();
+            console.log('hello');
+            e.preventDefault();
+          });
+      });
+
+    </script>
+
 </div>

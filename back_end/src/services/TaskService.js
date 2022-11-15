@@ -44,6 +44,7 @@ class TaskService {
       taskName: req.body.taskName,
       note: req.body.taskNote,
       deadline: req.body.deadline,
+      isImportant: req.body.isImportant,
       list: list._id,
     });
 
@@ -137,7 +138,9 @@ class TaskService {
       return res
         .status(400)
         .send({ success: false, message: "List not found !" });
+    
     let tasks = [];
+
     tasks = await Task.find({ list: list._id }).exec();
 
     if (tasks != null) {

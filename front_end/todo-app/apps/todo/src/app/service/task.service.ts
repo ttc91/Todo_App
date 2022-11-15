@@ -10,7 +10,11 @@ import { Observable } from 'rxjs';
 export class TaskService {
     constructor(private http: HttpClient) {}
 
-    getTasksOfList(listId: string) : Observable<Task[]> {
+    createTask(task: Task) : Observable<Task>{
+      return this.http.post<Task>(`${environment.apiUrl}/tasks/create`, task);
+    }
+
+    getTasksList(listId: string) : Observable<Task[]> {
         return this.http.get<Task[]>(`${environment.apiUrl}/tasks/${listId}`)
     }
 
