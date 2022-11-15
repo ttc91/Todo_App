@@ -117,8 +117,25 @@ class TaskService {
 
   }
 
+  async updateIsToDay(req, res) {
+
+    let task = await Task.findByIdAndUpdate(
+      req.body._id,
+      {
+        isToday : req.body.isToday,
+      },
+      {
+        new: true
+      }
+    );
+    if (task) res.status(200).json(task);
+    else res.status(500).json({ success: false, message: "error" });
+
+  }
+
   async delete(req, res) {
 
+    console.log(req);
     await Task.findByIdAndDelete(req.params.id)
       .then(() => {
         res.status(200).json({
@@ -150,19 +167,20 @@ class TaskService {
 
   async updateNote(req, res) {
 
-    let task = await Task.findById(req.body.taskId).exec();
-    if (!task)
-      return res
-        .status(400)
-        .json({ success: false, message: "Task not found !" });
-    task.note = req.body.note;
-    task = await Task.findOneAndUpdate(task._id, task, { new: true });
-    if (!task)
-      return res
-        .status(400)
-        .json({ success: false, message: "Unable to update task Note !" });
-    res.status(200).json(task);
+    let task = await Task.findByIdAndUpdate(
+      req.body._id,
+      {
+        note : req.body.note,
+      },
+      {
+        new: true
+      }
+    );
+    if (task) res.status(200).json(task);
+    else res.status(500).json({ success: false, message: "error" });
+
   }
+
   async getAll(req, res) {
     
     let list = await List.findById(req.params.listId).exec();

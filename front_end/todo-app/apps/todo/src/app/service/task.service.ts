@@ -14,6 +14,10 @@ export class TaskService {
       return this.http.post<Task>(`${environment.apiUrl}/tasks/create`, task);
     }
 
+    deleteTask(id: string){
+      return this.http.delete(`${environment.apiUrl}/tasks/${id}`);
+    }
+
     getTasksList(listId: string) : Observable<Task[]> {
         return this.http.get<Task[]>(`${environment.apiUrl}/tasks/${listId}`);
     }
@@ -24,8 +28,9 @@ export class TaskService {
           isCompleted: isCompleted,
           note: '',
           deadline: null,
-          listId: '',
-          isImportant: false
+          list: '',
+          isImportant: false,
+          isToday: false
         }
         return this.http.post<Task>(`${environment.apiUrl}/tasks/update/is_complete`, task);
     }
@@ -36,22 +41,23 @@ export class TaskService {
         isImportant: isImportant,
         note: '',
         deadline: null,
-        listId: '',
-        isCompleted: false
+        list: '',
+        isCompleted: false,
+        isToday: false
       }
       return this.http.post<Task>(`${environment.apiUrl}/tasks/update/is_important`, task);
   }
 
-    getTaskById(taskId: string) {
-        return this.http.get(`${environment.apiUrl}/tasks/${taskId}`)
+    getTaskById(taskId: string) : Observable<Task>{
+        return this.http.get<Task>(`${environment.apiUrl}/tasks/get/${taskId}`)
     }
 
     updateTaskNote(taskId: string, note: string) {
-        return this.http.put(`${environment.apiUrl}/tasks/update-note`, { taskId: taskId, note: note })
+        return this.http.put(`${environment.apiUrl}/tasks/update-note`, { _id: taskId, note: note })
     }
 
-    updateTask(task: Task) {
-        return this.http.put(`${environment.apiUrl}/tasks/update`, {
+    updateTask(task: Task) : Observable<Task> {
+        return this.http.put<Task>(`${environment.apiUrl}/tasks/update`, {
             id: task._id,
             taskName: task.taskName,
             note: task.note,

@@ -37,16 +37,16 @@ const routes: Routes = [
         children: [
             {
                 path: 'tasks/:listId',
-                component: TaskComponent
-                // children: [{ path: 'tasks/:taskId', component: TaskDetailComponent, outlet: 'taskDetailOutlet' }],
+                component: TaskComponent,
+                children:
+                [
+                  { path: 'id/:taskId',
+                    component: TaskDetailComponent
+                  }
+                ],
             },
         ],
     },
-    // {
-    //     path: 'task-detail',
-    //     component: TaskDetailComponent,
-    //     canActivate: [AuthGuardService],
-    // },
 ]
 
 @NgModule({

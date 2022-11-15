@@ -4,11 +4,11 @@ export class Task {
     note!: string
     isCompleted!: boolean
     isImportant!: boolean
-    isToday?: false
+    isToday!: boolean
     deadline!: Date | null
     remindAt?: string
     file?: string
-    listId!: string
+    list!: string
     createdAt?: string
     updatedAt?: string
     __v?: string

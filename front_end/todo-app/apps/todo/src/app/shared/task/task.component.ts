@@ -48,7 +48,8 @@ export class TaskComponent implements OnInit {
         note: '',
         isCompleted: false,
         deadline: null,
-        listId: this.listId
+        list: this.listId,
+        isToday: false
       }
 
       this.taskService.createTask(task).subscribe();

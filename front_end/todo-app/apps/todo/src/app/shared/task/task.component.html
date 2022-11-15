@@ -15,15 +15,13 @@
             </div>
 
             <div class="task-list-add-tool">
-                <button id="dateBtn" class="task-button-deadline"><i class="pi pi-calendar"></i></button>
                 <button (click)="setImportant()" class="task-button-remind"><i class="pi pi-star"></i></button>
                 <button (click)="createTask()" class="task-button-add">Add</button>
             </div>
         </div>
 
         <div class="task-list-item">
-            <div
-                class="task-list" *ngFor="let task of tasks">
+            <div class="task-list" *ngFor="let task of tasks" [routerLink]="['id/', task._id]">
                 <div class="task-list-status" (click)="updateTaskIsCompleted(task._id, task.isCompleted)">
                   <i [ngClass] = "[task.isCompleted ? 'state-true' : 'state-false', 'task-list-icon pi pi-circle']"></i>
                   <i [ngClass]= "[task.isCompleted ? 'state-false' : 'state-true', 'task-list-icon pi pi-check-circle']"></i>
@@ -34,7 +32,7 @@
         </div>
     </div>
     <div class="col-2">
-        <router-outlet name="taskDetailOutlet"></router-outlet>
+        <router-outlet></router-outlet>
     </div>
 
     <script>
