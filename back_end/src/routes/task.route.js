@@ -9,6 +9,6 @@ router.put("/update-note", verifyToken, service.updateNote);
 
 router.post("/import", verifyToken, service.import);
 router.get("/:id", verifyToken, service.getOne);
-router.get("/get_all/:listId", verifyToken, service.getAll);
+router.get("/:listId", verifyToken, service.getAll);
 router.delete("/:id", verifyToken, service.delete);
 module.exports = router;

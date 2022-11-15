@@ -131,6 +131,7 @@ class TaskService {
     res.status(200).json(task);
   }
   async getAll(req, res) {
+    
     let list = await List.findById(req.params.listId).exec();
     if (!list)
       return res
