@@ -27,7 +27,6 @@ import { FormsModule } from '@angular/forms'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 
 const routes: Routes = [
-
     { path: 'login', component: LoginPageComponent },
     { path: 'signup', component: SignupPageComponent },
     {
@@ -38,12 +37,7 @@ const routes: Routes = [
             {
                 path: 'tasks/:listId',
                 component: TaskComponent,
-                children:
-                [
-                  { path: 'id/:taskId',
-                    component: TaskDetailComponent
-                  }
-                ],
+                children: [{ path: 'id/:taskId', component: TaskDetailComponent }],
             },
         ],
     },
@@ -73,7 +67,7 @@ const routes: Routes = [
         ConfirmDialogModule,
         ToastModule,
         FormsModule,
-        DragDropModule
+        DragDropModule,
     ],
     providers: [MessageService, ConfirmationService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
     bootstrap: [AppComponent],

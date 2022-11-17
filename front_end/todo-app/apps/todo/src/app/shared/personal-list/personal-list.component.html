@@ -2,7 +2,7 @@
     <div class="personal-list-link">
         <ul>
             <div class="vertical-menu">
-                <li *ngFor="let list of lists" [routerLink]="['', { outlets: { taskOutlet: ['lists', list._id] } }]">
+                <li *ngFor="let list of lists" [routerLink]="'tasks/' + list._id">
                     <i class="pi pi-list"></i>
                     <input class="personal-list-add-button" #listNameUpdate [value]="list.listName" />
                     <button style="background-color: #b3fca2">

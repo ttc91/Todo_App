@@ -7,72 +7,69 @@ import { Task } from '../../model/task.model'
     templateUrl: './task.component.html',
 })
 export class TaskComponent implements OnInit {
+    taskName = ''
+    isImportant = false
 
-    taskName  = '';
-    isImportant  = false;
+    listId = ''
+    tasks: Task[] = []
 
-    listId = '';
-    tasks: Task[] = [];
-
-    constructor(private taskService: TaskService, private activatedRoute: ActivatedRoute) {
-
-    }
+    constructor(private taskService: TaskService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit(): void {
-
-        this.activatedRoute.params.subscribe(paramsId => {
-          this.listId = paramsId['listId'];
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          this.taskService.getTasksList(this.listId).subscribe((response: any) => {
-              this.tasks = response.tasks;
-          });
+        this.activatedRoute.params.subscribe((paramsId) => {
+            this.listId = paramsId['listId']
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            if (this.listId !== null)
+                this.taskService.getTasksList(this.listId).subscribe(
+                    (response: any) => {
+                        this.tasks = response.tasks
+                    },
+                    (err) => {
+                        this.tasks = []
+                    }
+                )
         })
-
     }
 
-    setImportant () {
-      this.isImportant == false ? this.isImportant = true : this.isImportant = false;
-      console.log(this.isImportant);
+    setImportant() {
+        this.isImportant == false ? (this.isImportant = true) : (this.isImportant = false)
+        console.log(this.isImportant)
     }
 
     createTask() {
-      const check = this.taskName?.length == 0;
-      if(check){
-        return;
-      }
+        const check = this.taskName?.length == 0
+        if (check) {
+            return
+        }
 
-      const task : Task = {
-        taskName: this.taskName,
-        isImportant: this.isImportant,
-        _id: '',
-        note: '',
-        isCompleted: false,
-        deadline: null,
-        list: this.listId,
-        isToday: false
-      }
+        const task: Task = {
+            taskName: this.taskName,
+            isImportant: this.isImportant,
+            _id: '',
+            note: '',
+            isCompleted: false,
+            deadline: null,
+            list: this.listId,
+            isToday: false,
+        }
 
-      this.taskService.createTask(task).subscribe();
-      this.isImportant = false;
-      this.taskName = '';
-      this.ngOnInit();
-
+        this.taskService.createTask(task).subscribe()
+        this.isImportant = false
+        this.taskName = ''
+        this.ngOnInit()
     }
 
     updateTaskIsCompleted(taskId: string, isCompleted: boolean) {
+        isCompleted == true ? (isCompleted = false) : (isCompleted = true)
 
-      isCompleted == true ? isCompleted = false : isCompleted = true;
-
-      this.taskService.updateTaskIsCompleted(taskId, isCompleted).subscribe();
-      this.ngOnInit();
+        this.taskService.updateTaskIsCompleted(taskId, isCompleted).subscribe()
+        this.ngOnInit()
     }
 
     updateTaskIsImportant(taskId: string, isImportant: boolean) {
+        isImportant == true ? (isImportant = false) : (isImportant = true)
 
-      isImportant == true ? isImportant = false : isImportant = true;
-
-      this.taskService.updateTaskIsImportant(taskId, isImportant).subscribe();
-      this.ngOnInit();
+        this.taskService.updateTaskIsImportant(taskId, isImportant).subscribe()
+        this.ngOnInit()
     }
-
 }

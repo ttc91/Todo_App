@@ -11,7 +11,11 @@ router.post("/import", verifyToken, service.import);
 router.post("/update/is_complete", verifyToken, service.updateIsCompleted);
 router.post("/update/is_important", verifyToken, service.updateIsImportant);
 router.post("/update/is_today", verifyToken, service.updateIsToDay);
-router.get("/:listId", verifyToken, service.getAll);
+router.get("/important", verifyToken, service.getImportant);
+router.get("/myday", verifyToken, service.getMyday);
+
 router.get("/get/:id", verifyToken, service.getOne);
+router.get("/:listId", verifyToken, service.getAll);
+
 router.delete("/:id", verifyToken, service.delete);
 module.exports = router;

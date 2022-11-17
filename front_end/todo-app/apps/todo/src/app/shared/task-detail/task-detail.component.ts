@@ -6,18 +6,16 @@ import { StepService } from '../../service/step.service'
 import { TaskService } from '../../service/task.service'
 import { MessageService, ConfirmationService } from 'primeng/api'
 import { CdkDragDrop } from '@angular/cdk/drag-drop'
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'todo-task-detail',
     templateUrl: './task-detail.component.html',
 })
-
 export class TaskDetailComponent implements OnInit {
-
-    addStep = '';
-    task: Task = new Task();
-    steps: Step[] = [];
+    addStep = ''
+    task: Task = new Task()
+    steps: Step[] = []
 
     constructor(
         private taskService: TaskService,
@@ -31,22 +29,18 @@ export class TaskDetailComponent implements OnInit {
     ngOnInit(): void {
         this.activatedRoute.params.subscribe((params: Params) => {
             if (params['taskId']) {
-                this.taskService.getTaskById(params['taskId']).subscribe(
-                    (response: any) => {
-                        this.task = response.task
-                    }
-                )
-                this.stepService.getStepsOfTask(params['taskId']).subscribe(
-                    (response: any) => {
-                        this.steps = response.lstStep
-                    }
-                )
+                this.taskService.getTaskById(params['taskId']).subscribe((response: any) => {
+                    this.task = response.task
+                })
+                this.stepService.getStepsOfTask(params['taskId']).subscribe((response: any) => {
+                    this.steps = response.lstStep
+                })
             }
         })
     }
 
     updateTaskNote(id: string) {
-        this.taskService.updateTaskNote(id, this.task.note).subscribe();
+        this.taskService.updateTaskNote(id, this.task.note).subscribe()
     }
 
     updateDeadline(value: string) {
@@ -143,6 +137,7 @@ export class TaskDetailComponent implements OnInit {
                     detail: 'Add step success !',
                 })
                 this.steps.push(res.step)
+                this.addStep = ''
             },
             (err) => {
                 this.messageService.add({
@@ -202,21 +197,19 @@ export class TaskDetailComponent implements OnInit {
         return ''
     }
 
-    taskAddToMyDate(){
-      this.task.isToday == true ? this.task.isToday = false : this.task.isToday = true;
-      this.taskService.updateTask(this.task).subscribe();
-      this.ngOnInit();
+    taskAddToMyDate() {
+        this.task.isToday == true ? (this.task.isToday = false) : (this.task.isToday = true)
+        this.taskService.updateTask(this.task).subscribe()
+        this.ngOnInit()
     }
 
-    deleteTask(){
+    deleteTask() {
+        const listId = this.task.list
 
-      const listId = this.task.list;
-
-      this.taskService.deleteTask(this.task._id).subscribe((response) => {
-        console.log(response);
-      });
-
-      this.router.navigate(['/tasks/' + listId]);
+        this.taskService.deleteTask(this.task._id).subscribe((response) => {
+            this.router.navigate(['/tasks/' + listId]).then(() => {
+                window.location.reload()
+            })
+        })
     }
-
 }

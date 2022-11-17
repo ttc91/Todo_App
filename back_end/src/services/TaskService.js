@@ -13,9 +13,7 @@ var storage = multer.memoryStorage({
 });
 
 class TaskService {
-
   async import(req, res) {
-
     let upload = multer({ storage: storage }).single("file");
     upload(req, res, async function (err) {
       var buffer = req.file.buffer;
@@ -34,13 +32,14 @@ class TaskService {
         `You have uploaded this image: <hr/><img src="${req.file.path}" width="500"><hr /><a href="./">Upload another image</a>`
       );
     });
-
   }
   async create(req, res) {
+    const list = await List.findById(req.body.list).exec();
 
-    let list = await List.findById(req.body.listId).exec();
-
-    let task = await Task({
+    if (!list)
+      res.status(400).send({ success: false, message: "Not found list " });
+    console.log(list);
+    let task = new Task({
       taskName: req.body.taskName,
       note: req.body.taskNote,
       deadline: req.body.deadline,
@@ -48,22 +47,12 @@ class TaskService {
       list: list._id,
     });
 
-    await task
-      .save()
-      .then(() => {
-        res.status(201).json(task);
-      })
-      .catch((error) => {
-        res.status(500).json({
-          message: error,
-          success: false,
-        });
-      });
-
+    task = await task.save();
+    if (!task) return res.status(500).json({ message: error, success: false });
+    res.status(200).send(task);
   }
 
   async update(req, res) {
-
     let task = await Task.findByIdAndUpdate(
       req.body.id,
       {
@@ -77,65 +66,56 @@ class TaskService {
         file: req.body.file,
       },
       {
-        new: true
+        new: true,
       }
     );
     if (task) res.status(200).json(task);
     else res.status(500).json({ success: false, message: "error" });
-
   }
 
   async updateIsCompleted(req, res) {
-
     let task = await Task.findByIdAndUpdate(
       req.body._id,
       {
         isCompleted: req.body.isCompleted,
       },
       {
-        new: true
+        new: true,
       }
     );
     if (task) res.status(200).json(task);
     else res.status(500).json({ success: false, message: "error" });
-
   }
 
   async updateIsImportant(req, res) {
-
     let task = await Task.findByIdAndUpdate(
       req.body._id,
       {
         isImportant: req.body.isImportant,
       },
       {
-        new: true
+        new: true,
       }
     );
     if (task) res.status(200).json(task);
     else res.status(500).json({ success: false, message: "error" });
-
   }
 
   async updateIsToDay(req, res) {
-
     let task = await Task.findByIdAndUpdate(
       req.body._id,
       {
-        isToday : req.body.isToday,
+        isToday: req.body.isToday,
       },
       {
-        new: true
+        new: true,
       }
     );
     if (task) res.status(200).json(task);
     else res.status(500).json({ success: false, message: "error" });
-
   }
 
   async delete(req, res) {
-
-    console.log(req);
     await Task.findByIdAndDelete(req.params.id)
       .then(() => {
         res.status(200).json({
@@ -148,11 +128,47 @@ class TaskService {
           success: false,
         });
       });
+  }
 
+  async getImportant(req, res) {
+    const tasks = await Task.find({ isImportant: true }).exec();
+
+    if (tasks.length !== 0) {
+      res.status(200).json({ tasks });
+    } else {
+      res.status(500).json({
+        message: "Cannot get data !",
+      });
+    }
+  }
+
+  async getMyday(req, res) {
+    const today = new Date();
+    today.setHours(0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tasks = await Task.find({
+      $or: [
+        {
+          deadline: {
+            $gte: today,
+            $lt: tomorrow,
+          },
+        },
+        { isToday: true },
+      ],
+    }).exec();
+
+    if (tasks.length !== 0) {
+      res.status(200).json({ tasks });
+    } else {
+      res.status(500).json({
+        message: "Cannot get data !",
+      });
+    }
   }
 
   async getOne(req, res) {
-
     let task = await Task.findById(req.params.id).exec();
 
     if (task != null) {
@@ -162,33 +178,29 @@ class TaskService {
         message: "Cannot get data !",
       });
     }
-
   }
 
   async updateNote(req, res) {
-
     let task = await Task.findByIdAndUpdate(
       req.body._id,
       {
-        note : req.body.note,
+        note: req.body.note,
       },
       {
-        new: true
+        new: true,
       }
     );
     if (task) res.status(200).json(task);
     else res.status(500).json({ success: false, message: "error" });
-
   }
 
   async getAll(req, res) {
-    
     let list = await List.findById(req.params.listId).exec();
     if (!list)
       return res
         .status(400)
         .send({ success: false, message: "List not found !" });
-    
+
     let tasks = [];
 
     tasks = await Task.find({ list: list._id }).exec();
@@ -201,7 +213,6 @@ class TaskService {
       });
     }
   }
-  
 }
 
 module.exports = new TaskService();
