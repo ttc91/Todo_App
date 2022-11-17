@@ -1,14 +1,14 @@
 export class Task {
     _id!: string
-    taskName!: string
+    taskName?: string
     note!: string
     isCompleted!: boolean
-    isImportant?: boolean
-    isToday?: false
+    isImportant!: boolean
+    isToday!: boolean
     deadline!: Date | null
     remindAt?: string
     file?: string
-    list?: string
+    list!: string
     createdAt?: string
     updatedAt?: string
     __v?: string

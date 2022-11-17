@@ -5,21 +5,27 @@ import { Task } from '../../model/task.model'
 import { StepService } from '../../service/step.service'
 import { TaskService } from '../../service/task.service'
 import { MessageService, ConfirmationService } from 'primeng/api'
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
+import { CdkDragDrop } from '@angular/cdk/drag-drop'
+import { Router } from '@angular/router';
+
 @Component({
     selector: 'todo-task-detail',
     templateUrl: './task-detail.component.html',
 })
+
 export class TaskDetailComponent implements OnInit {
-    addStep = ''
-    task: Task = new Task()
-    steps: Step[] = []
+
+    addStep = '';
+    task: Task = new Task();
+    steps: Step[] = [];
+
     constructor(
         private taskService: TaskService,
         private stepService: StepService,
         private activatedRoute: ActivatedRoute,
         private messageService: MessageService,
-        private confirmationService: ConfirmationService
+        private confirmationService: ConfirmationService,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -28,24 +34,19 @@ export class TaskDetailComponent implements OnInit {
                 this.taskService.getTaskById(params['taskId']).subscribe(
                     (response: any) => {
                         this.task = response.task
-                    },
-                    (err) => {}
+                    }
                 )
                 this.stepService.getStepsOfTask(params['taskId']).subscribe(
                     (response: any) => {
                         this.steps = response.lstStep
-                    },
-                    (err) => {}
+                    }
                 )
             }
         })
     }
 
     updateTaskNote(id: string) {
-        this.taskService.updateTaskNote(id, this.task.note).subscribe(
-            (res) => {},
-            (err) => {}
-        )
+        this.taskService.updateTaskNote(id, this.task.note).subscribe();
     }
 
     updateDeadline(value: string) {
@@ -200,4 +201,22 @@ export class TaskDetailComponent implements OnInit {
         }
         return ''
     }
+
+    taskAddToMyDate(){
+      this.task.isToday == true ? this.task.isToday = false : this.task.isToday = true;
+      this.taskService.updateTask(this.task).subscribe();
+      this.ngOnInit();
+    }
+
+    deleteTask(){
+
+      const listId = this.task.list;
+
+      this.taskService.deleteTask(this.task._id).subscribe((response) => {
+        console.log(response);
+      });
+
+      this.router.navigate(['/tasks/' + listId]);
+    }
+
 }

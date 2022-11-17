@@ -19,15 +19,11 @@
             </div>
         </div>
 
-        <div class="task-my-day">
+        <div class="task-my-day" (click)="taskAddToMyDate()" [ngStyle]="{'background-color' : (task.isToday) ? 'white' : '#F5F5F5'}" >
             <p><i class="pi pi-sun"></i>Add to my day</p>
         </div>
 
         <div class="task-tool">
-            <div class="task-remind-me">
-                <p><i class="pi pi-bell"></i>Remind me</p>
-            </div>
-
             <div class="task-deadline">
                 <i class="pi pi-calendar-minus"></i>
                 <input #inputTaskDeadline type="datetime-local" [value]="toDatimeLocal(task.deadline)" />
@@ -55,7 +51,7 @@
             <div class="task-detail-tool">
                 <i class="pi pi-arrow-circle-right"></i>
                 <p>Updated yesterday</p>
-                <i class="pi pi-trash"></i>
+                <i class="pi pi-trash" (click)="deleteTask()"></i>
             </div>
         </div>
     </div>

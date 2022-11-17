@@ -27,34 +27,26 @@ import { FormsModule } from '@angular/forms'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 
 const routes: Routes = [
-  
+
     { path: 'login', component: LoginPageComponent },
     { path: 'signup', component: SignupPageComponent },
-
     {
         path: '',
         component: HomePageComponent,
         canActivate: [AuthGuardService],
         children: [
             {
-                path: 'lists/:listId',
+                path: 'tasks/:listId',
                 component: TaskComponent,
-                outlet: 'taskOutlet',
-                children: [{ path: 'tasks/:taskId', component: TaskDetailComponent, outlet: 'taskDetailOutlet' }],
+                children:
+                [
+                  { path: 'id/:taskId',
+                    component: TaskDetailComponent
+                  }
+                ],
             },
         ],
     },
-
-    // {
-    //     path: 'tasks',
-    //     component: ShellComponent,
-    //     canActivate: [AuthGuardService],
-    // },
-    // {
-    //     path: 'task-detail',
-    //     component: TaskDetailComponent,
-    //     canActivate: [AuthGuardService],
-    // },
 ]
 
 @NgModule({

@@ -8,7 +8,10 @@ router.put("/update", verifyToken, service.update);
 router.put("/update-note", verifyToken, service.updateNote);
 
 router.post("/import", verifyToken, service.import);
-router.get("/:id", verifyToken, service.getOne);
-router.get("/get_all/:listId", verifyToken, service.getAll);
+router.post("/update/is_complete", verifyToken, service.updateIsCompleted);
+router.post("/update/is_important", verifyToken, service.updateIsImportant);
+router.post("/update/is_today", verifyToken, service.updateIsToDay);
+router.get("/:listId", verifyToken, service.getAll);
+router.get("/get/:id", verifyToken, service.getOne);
 router.delete("/:id", verifyToken, service.delete);
 module.exports = router;
