@@ -96,7 +96,7 @@
           margin: 0;
 
           li{
-            height: 30px;
+            height: 35px;
             cursor: pointer;
             margin-bottom: 10px;
             display: flex;
@@ -142,7 +142,7 @@
               font-family: 'Open Sans', sans-serif;
               color: #2564CF;
               &:hover{
-                background-color: rgba(255, 0, 0, 0.52);
+                background-color: #2563cfe6;
                 color: white;
               }
 

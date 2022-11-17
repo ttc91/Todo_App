@@ -2,20 +2,14 @@
     <div class="personal-list-link">
         <ul>
             <div class="vertical-menu">
-                <li *ngFor="let list of lists" [routerLink]="'tasks/' + list._id">
+                <li *ngFor="let list of lists" [routerLink]="'tasks/' + list._id" class="personal-list-item">
                     <i class="pi pi-list"></i>
-                    <input class="personal-list-add-button" #listNameUpdate [value]="list.listName" />
-                    <button style="background-color: #b3fca2">
-                        <i style="margin: 0" class="pi pi-save" (click)="updateList(listNameUpdate.value, list._id!)"></i>
-                    </button>
-                    <button style="background-color: #fe5c5c">
+                    <input class="personal-list-input-name" #listNameUpdate [value]="list.listName" (change)="updateList(listNameUpdate.value, list._id!)"/>
+                    <button class="personal-list-button-delete">
                         <i style="margin: 0" class="pi pi-trash" (click)="deleteList(list._id!)"></i>
                     </button>
                 </li>
             </div>
-            <!-- <li *ngFor="let list of lists" [routerLink]= "['tasks/', list._id]">
-                <i class="pi pi-list"></i> <p>{{ list.listName }}</p>
-            </li> -->
             <li class="personal-list-add">
                 <i class="pi pi-plus add-list"></i> <input class="personal-list-add-button" #listNameInput placeholder="Add list" />
                 <button (click)="createList(listNameInput.value)">Create</button>

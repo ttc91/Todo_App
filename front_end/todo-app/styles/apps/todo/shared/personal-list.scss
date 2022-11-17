@@ -11,15 +11,46 @@
 
 .vertical-menu li input{
     width: 70%;
-    height: 80%;
+    height: 90%;
     cursor: pointer;
     border: none ;
     border-radius: 5px;
     padding: 0 10px;
+    font-size: 17px;
 }
 
 button{
     cursor: pointer;
     margin: 2px;
+}
+
+.personal-list-item{
+  height: 50px;
+}
+
+.personal-list-input-name{
+  border: none;
+  background-color: transparent;
+  font-family: 'Open-Sans', sans-serif;
+  color: #9CA2A8;
+
+  &:focus, :active{
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
+}
+
+.personal-list-button-delete{
+  height: 100%;
+  width: 50px;
+  border: none;
+  background-color: transparent;
+  color: transparent;
+  border-radius: 5px;
+
+  &:hover{
+    color: rgb(247, 72, 72);
+  }
 }
 
