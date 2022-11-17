@@ -14,6 +14,7 @@ router.post("/update/is_today", verifyToken, service.updateIsToDay);
 router.get("/important", verifyToken, service.getImportant);
 router.get("/myday", verifyToken, service.getMyday);
 
+router.get("/get_file/:id", verifyToken, service.getFile);
 router.get("/get/:id", verifyToken, service.getOne);
 router.get("/:listId", verifyToken, service.getAll);
 

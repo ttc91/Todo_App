@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="task-my-day" (click)="taskAddToMyDate()" [ngStyle]="{'background-color' : (task.isToday) ? 'white' : '#F5F5F5'}" >
+        <div class="task-my-day" (click)="taskAddToMyDate()" [ngStyle]="{ 'background-color': task.isToday ? 'white' : '#F5F5F5' }">
             <p><i class="pi pi-sun"></i>Add to my day</p>
         </div>
 
@@ -30,9 +30,18 @@
                 <i class="pi pi-check update" (click)="updateDeadline(inputTaskDeadline.value)"></i>
             </div>
         </div>
-
         <div class="task-file">
-            <p><i class="pi pi-file-import"></i>Upload file</p>
+            <div>
+                <input type="file" class="file_input" (change)="importFile($event, task._id)" #fileUpload />
+                <div class="" style="height: 44px">
+                    <a class="file_upload" (click)="downloadFile()" style="width: 100%; height: 100%; display: flex; align-items: center;">
+                        <i class="pi pi-file-import"></i>
+                        <p style="overflow: hidden">{{ fileName || 'No file uploaded yet.' }}</p>
+                    </a>
+                </div>
+
+                <!-- <a> <i class="pi pi-file-import"></i><button class="button is-danger" (click)="onDeleteTaskClick(task._id)" style="margin-left: 10px"></a> -->
+            </div>
         </div>
 
         <div class="task-note">
@@ -50,7 +59,7 @@
             <hr />
             <div class="task-detail-tool">
                 <i class="pi pi-arrow-circle-right"></i>
-                <p>Updated yesterday</p>
+                <p class="update_yesterday">Updated yesterday</p>
                 <i class="pi pi-trash" (click)="deleteTask()"></i>
             </div>
         </div>

@@ -7,6 +7,9 @@ import { TaskService } from '../../service/task.service'
 import { MessageService, ConfirmationService } from 'primeng/api'
 import { CdkDragDrop } from '@angular/cdk/drag-drop'
 import { Router } from '@angular/router'
+import { HttpClient } from '@angular/common/http';
+import { Buffer } from 'buffer';
+import { saveAs } from 'file-saver';
 
 @Component({
     selector: 'todo-task-detail',
@@ -16,27 +19,57 @@ export class TaskDetailComponent implements OnInit {
     addStep = ''
     task: Task = new Task()
     steps: Step[] = []
-
+    fileName?: string
     constructor(
         private taskService: TaskService,
         private stepService: StepService,
         private activatedRoute: ActivatedRoute,
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
-        private router: Router
-    ) {}
+        private router: Router,
+        private http: HttpClient
+    ) { }
 
     ngOnInit(): void {
         this.activatedRoute.params.subscribe((params: Params) => {
             if (params['taskId']) {
                 this.taskService.getTaskById(params['taskId']).subscribe((response: any) => {
                     this.task = response.task
+                    // console.log(this.task.file);
                 })
                 this.stepService.getStepsOfTask(params['taskId']).subscribe((response: any) => {
                     this.steps = response.lstStep
                 })
             }
         })
+    }
+
+    str2bytes (str:any) {
+        const bytes = new Uint8Array(str.length);
+        for (let i=0; i<str.length; i++) {
+            bytes[i] = str.charCodeAt(i);
+        }
+        return bytes;
+    }
+
+    downloadFile() {
+
+        this.http.get(`http://localhost:3000/api/v1/tasks/get_file/${this.task._id}`).subscribe((response : any) => {
+            const buffer = [response.file];
+            const blob = new Blob(buffer, {
+                type: 'application/zip'
+            });
+            blob.arrayBuffer = buffer[0].data;
+            const url = window.URL.createObjectURL(blob);
+            console.log(blob);
+            window.open(url);
+        });
+        
+        //const blob = new Blob(buffer,{type: 'application/zip'});
+     
+       // console.log(blob);
+        //saveAs(blob,"123");
+        // console.log(url);
     }
 
     updateTaskNote(id: string) {
@@ -104,8 +137,8 @@ export class TaskDetailComponent implements OnInit {
     }
     inputStepNameChange(id: string) {
         this.stepService.updateStep(this.steps.filter((x) => x._id === id)[0]).subscribe(
-            (res) => {},
-            (err) => {}
+            (res) => { },
+            (err) => { }
         )
     }
 
@@ -127,6 +160,19 @@ export class TaskDetailComponent implements OnInit {
                 })
             }
         )
+    }
+    importFile(event: any, id: string) {
+        const file: File = event.target.files[0];
+        if (file) {
+            this.fileName = file.name;
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("id", id);
+            const upload$ = this.http.post("http://localhost:3000/api/v1/tasks/import", formData);
+            upload$.subscribe((res) => {
+                console.log(res);
+            })
+        }
     }
     onAddstepClick() {
         this.stepService.addStep(this.task._id, this.addStep).subscribe(

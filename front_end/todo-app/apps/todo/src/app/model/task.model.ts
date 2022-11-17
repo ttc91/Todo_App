@@ -7,7 +7,7 @@ export class Task {
     isToday!: boolean
     deadline!: Date | null
     remindAt?: string
-    file?: string
+    file?: ArrayBuffer
     list!: string
     createdAt?: string
     updatedAt?: string

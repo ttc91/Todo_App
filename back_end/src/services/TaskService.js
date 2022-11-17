@@ -168,9 +168,19 @@ class TaskService {
     }
   }
 
+  async getFile(req, res) {
+    let task = await Task.findById(req.params.id).exec();
+    if (task != null) {
+      res.type('arraybuffer').status(200).json({ file : task.file });
+    } else {
+      res.status(500).json({
+        message: "Cannot get data !",
+      });
+    }
+  }
+
   async getOne(req, res) {
     let task = await Task.findById(req.params.id).exec();
-
     if (task != null) {
       res.status(200).json({ task });
     } else {
