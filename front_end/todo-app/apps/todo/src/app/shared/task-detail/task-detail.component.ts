@@ -7,9 +7,9 @@ import { TaskService } from '../../service/task.service'
 import { MessageService, ConfirmationService } from 'primeng/api'
 import { CdkDragDrop } from '@angular/cdk/drag-drop'
 import { Router } from '@angular/router'
-import { HttpClient } from '@angular/common/http';
-import { Buffer } from 'buffer';
-import { saveAs } from 'file-saver';
+import { HttpClient } from '@angular/common/http'
+import { Buffer } from 'buffer'
+import { saveAs } from 'file-saver'
 
 @Component({
     selector: 'todo-task-detail',
@@ -28,14 +28,13 @@ export class TaskDetailComponent implements OnInit {
         private confirmationService: ConfirmationService,
         private router: Router,
         private http: HttpClient
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         this.activatedRoute.params.subscribe((params: Params) => {
             if (params['taskId']) {
                 this.taskService.getTaskById(params['taskId']).subscribe((response: any) => {
                     this.task = response.task
-                    // console.log(this.task.file);
                 })
                 this.stepService.getStepsOfTask(params['taskId']).subscribe((response: any) => {
                     this.steps = response.lstStep
@@ -44,30 +43,34 @@ export class TaskDetailComponent implements OnInit {
         })
     }
 
-    str2bytes (str:any) {
-        const bytes = new Uint8Array(str.length);
-        for (let i=0; i<str.length; i++) {
-            bytes[i] = str.charCodeAt(i);
+    str2bytes(str: any) {
+        const bytes = new Uint8Array(str.length)
+        for (let i = 0; i < str.length; i++) {
+            bytes[i] = str.charCodeAt(i)
         }
-        return bytes;
+        return bytes
     }
 
     downloadFile() {
+        this.http.get(`http://localhost:3000/api/v1/tasks/get_file/${this.task._id}`).subscribe((response: any) => {
+            const buffer = [response.file]
 
-        this.http.get(`http://localhost:3000/api/v1/tasks/get_file/${this.task._id}`).subscribe((response : any) => {
-            const buffer = [response.file];
             const blob = new Blob(buffer, {
-                type: 'application/zip'
-            });
-            blob.arrayBuffer = buffer[0].data;
-            const url = window.URL.createObjectURL(blob);
-            console.log(blob);
-            window.open(url);
-        });
-        
+                type: 'application/dpf',
+            })
+            console.log(blob)
+            blob.arrayBuffer = buffer[0].data
+            console.log(blob)
+
+            const url = window.URL.createObjectURL(blob)
+            window.open(url)
+            // console.log(blob)
+            // window.open(fileUrl)
+        })
+
         //const blob = new Blob(buffer,{type: 'application/zip'});
-     
-       // console.log(blob);
+
+        // console.log(blob);
         //saveAs(blob,"123");
         // console.log(url);
     }
@@ -137,8 +140,8 @@ export class TaskDetailComponent implements OnInit {
     }
     inputStepNameChange(id: string) {
         this.stepService.updateStep(this.steps.filter((x) => x._id === id)[0]).subscribe(
-            (res) => { },
-            (err) => { }
+            (res) => {},
+            (err) => {}
         )
     }
 
@@ -162,16 +165,21 @@ export class TaskDetailComponent implements OnInit {
         )
     }
     importFile(event: any, id: string) {
-        const file: File = event.target.files[0];
+        const file: File = event.target.files[0]
+        console.log(file)
         if (file) {
-            this.fileName = file.name;
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("id", id);
-            const upload$ = this.http.post("http://localhost:3000/api/v1/tasks/import", formData);
-            upload$.subscribe((res) => {
-                console.log(res);
-            })
+            this.fileName = file.name
+            const formData = new FormData()
+            formData.append('file', file)
+            formData.append('id', id)
+            this.http.post('http://localhost:3000/api/v1/tasks/import', formData).subscribe(
+                (res) => {
+                    console.log(res)
+                },
+                (err) => {
+                    console.log(err)
+                }
+            )
         }
     }
     onAddstepClick() {

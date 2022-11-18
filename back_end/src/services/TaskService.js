@@ -17,20 +17,19 @@ class TaskService {
     let upload = multer({ storage: storage }).single("file");
     upload(req, res, async function (err) {
       var buffer = req.file.buffer;
-      console.log(buffer);
-
       let task = await Task.findById(req.body.id);
       task.file = buffer;
       Task.findOneAndUpdate(task._id, task)
         .then(() => {
-          console.log("Ok");
+          res
+            .status(200)
+            .send(
+              `You have uploaded this image: <hr/><img src="${req.file.path}" width="500"><hr /><a href="./">Upload another image</a>`
+            );
         })
         .catch((err) => {
-          console.log(err);
+          res.status(400).send(err);
         });
-      return res.send(
-        `You have uploaded this image: <hr/><img src="${req.file.path}" width="500"><hr /><a href="./">Upload another image</a>`
-      );
     });
   }
   async create(req, res) {
@@ -171,7 +170,12 @@ class TaskService {
   async getFile(req, res) {
     let task = await Task.findById(req.params.id).exec();
     if (task != null) {
-      res.type('arraybuffer').status(200).json({ file : task.file });
+      // const b64 = Buffer.from(task.file).toString("base64");
+      // const mimeType = "image/png"; // e.g., image/png
+
+      // res.send(`<img src="data:${mimeType};base64,${b64}" />`);
+
+      res.type("arraybuffer").status(200).json({ file: task.file });
     } else {
       res.status(500).json({
         message: "Cannot get data !",

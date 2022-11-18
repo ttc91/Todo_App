@@ -53,10 +53,12 @@ export class TaskComponent implements OnInit {
             isToday: false,
         }
 
-        this.taskService.createTask(task).subscribe()
+        this.taskService.createTask(task).subscribe((task) => {
+            this.tasks.push(task)
+        })
         this.isImportant = false
         this.taskName = ''
-        this.ngOnInit()
+        // this.ngOnInit()
     }
 
     updateTaskIsCompleted(taskId: string, isCompleted: boolean) {

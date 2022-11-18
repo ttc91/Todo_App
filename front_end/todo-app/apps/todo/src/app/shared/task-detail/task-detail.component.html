@@ -32,11 +32,11 @@
         </div>
         <div class="task-file">
             <div>
-                <input type="file" class="file_input" (change)="importFile($event, task._id)" #fileUpload />
-                <div class="" style="height: 44px">
-                    <a class="file_upload" (click)="downloadFile()" style="width: 100%; height: 100%; display: flex; align-items: center;">
+                <input type="file" class="file_input" (change)="importFile($event, task._id)" #fileUpload *ngIf="!task.file" />
+                <div class="" style="height: 44px" *ngIf="task.file">
+                    <a class="file_upload" (click)="downloadFile()" style="width: 100%; height: 100%; display: flex; align-items: center">
                         <i class="pi pi-file-import"></i>
-                        <p style="overflow: hidden">{{ fileName || 'No file uploaded yet.' }}</p>
+                        <p style="overflow: hidden">{{ fileName || 'Your file !' }}</p>
                     </a>
                 </div>
 
