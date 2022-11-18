@@ -20,6 +20,7 @@ export class TaskDetailComponent implements OnInit {
     task: Task = new Task()
     steps: Step[] = []
     fileName?: string
+    downloadURL = ''
     constructor(
         private taskService: TaskService,
         private stepService: StepService,
@@ -52,27 +53,26 @@ export class TaskDetailComponent implements OnInit {
     }
 
     downloadFile() {
-        this.http.get(`http://localhost:3000/api/v1/tasks/get_file/${this.task._id}`).subscribe((response: any) => {
-            const buffer = [response.file]
+        // this.http.get(`http://localhost:3000/api/v1/tasks/get_file/${this.task._id}`).subscribe((response: any) => {
+        //     const buf = Buffer.from(response.file)
 
-            const blob = new Blob(buffer, {
-                type: 'application/dpf',
+        //     const blob = new Blob([buf], {
+        //         type: 'application/octet-stream',
+        //     })
+        //     console.log(blob)
+        //     const url = window.URL.createObjectURL(blob)
+        //     this.downloadURL = url
+        // })
+        if (this.task.file) {
+            const buf = Buffer.from(this.task.file)
+
+            const blob = new Blob([buf], {
+                type: 'application/octet-stream',
             })
             console.log(blob)
-            blob.arrayBuffer = buffer[0].data
-            console.log(blob)
-
             const url = window.URL.createObjectURL(blob)
             window.open(url)
-            // console.log(blob)
-            // window.open(fileUrl)
-        })
-
-        //const blob = new Blob(buffer,{type: 'application/zip'});
-
-        // console.log(blob);
-        //saveAs(blob,"123");
-        // console.log(url);
+        }
     }
 
     updateTaskNote(id: string) {
